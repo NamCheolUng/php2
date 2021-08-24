@@ -26,10 +26,17 @@
    <div>
    	<span><?=$row['message']?></span>
    	</div>
+      <div>
+       <button type = "button" onclick="location.href='update.php?number=<?=$row['number']?>">수정</button>
+       <button type = "button" onclick="location.href='delete.php?number=<?=$row['number']?>'">삭제</button>
+      </div>
    	<?php 
    	} 
    	mysqli_close($conn);
    	?>
-   	 <button type = "button" onclick="location.href='list.php'">게시판으로이동하기</button>
+      <div>
+       <button type = "button" onclick="location.href='list.php'">게시판으로이동하기</button>
+      </div>
+      
 </body>
 </html>
