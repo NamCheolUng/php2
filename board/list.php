@@ -48,8 +48,8 @@
 
 
  ?>
-   <h1>자유게시판</h1>
-    <table border="1">
+   <h1 style="text-align: center;">자유게시판</h1>
+    <table border="1" class="a">
     	<thead>
     		<tr>
     			<th>No</th>
@@ -76,6 +76,7 @@
 	  mysqli_close($conn);
 ?>
     </table>
+    <div style="text-align: center;">
     <?php
     if ($page <= 1) {
         echo "<a href=\"#\">처음</a>";
@@ -112,13 +113,14 @@
         echo "<a href=\"list.php?page=$total_page\">마지막</a>";
 
     }
-
 ?>
-     <div>
+</div>
+
+     <div style="text-align: center;">
         <button type = "button" onclick="location.href='write.html'">글쓰기</button>
      </div>
    
-    <div>
+    <div style="text-align: center;">
         <form action="search.php" method="get">
             <select name="sKey">
                 <option value="0" selected>선택</option>
