@@ -17,7 +17,7 @@
 
     $conn = mysqli_connect("localhost", "root", "111111", "bo_table");
 
-     $sql = "SELECT * FROM board";
+    $sql = "SELECT * FROM board";
     $data = mysqli_query($conn, $sql);
     $row_num = mysqli_num_rows($data); //모든 레코드 수, 데이터의 총 개수를 숫자로 반환
     
@@ -42,7 +42,7 @@
  $total_block = ceil($total_page / $block_cnt); //블록의 총 개수
  $page_start = ($page -1) * $list; //페이지의 시작 $page_start변수는 sql문에서 limit 조건을 걸때 사용
 
- $sql2 = "SELECT * FROM board ORDER BY number desc LIMIT $page_start, $list"; //(offset,row카운트)
+ $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board ORDER BY number DESC LIMIT $page_start, $list"; //(offset,row카운트)
  $result = mysqli_query($conn, $sql2);
 
 
@@ -60,10 +60,12 @@
     	</thead>
 <?php
     while ($row=mysqli_fetch_array($result)) {
+
 ?>
         <tbody>
        		<tr>
-    			<td><?=$row['number']?></td>
+                <!-- <td><?=$row['number']?></td> -->
+    			<td><?=$row['row']?></td>
                 <td><a href="view.php?number=<?=$row['number']?>"><?=$row['title']?></a></td>
     			<td><?=$row['name']?></td>
     			<td><?=$row['created']?></td>
