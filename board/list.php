@@ -1,19 +1,29 @@
 <?php
+ include 'header.php';
+
+    $u_sText = "";
+    $u_sKey = "";
+
+    /* 페이징 시작 */
+    //페이지 get 변수가 있다면 받아오고, 없다면 1페이지를 보여준다.
    if(isset($_GET['page'])){
      $page = $_GET['page']; //1,2,3,4,5
    }else{
         $page = 1;
    }
-    include 'header.php';
 
-    // $search_option = " where 1";
+   /* 검색 시작 */
 
-    // if(isset($_POST['searchType']=="title")) {
-    //     $search_option = "and title = a "
-    // }
-    // if(isset($_POST['searchType']=="writer")) {
-    //     $search_option = "and writer = a "
-    // }
+   $search_option = "WHERE";
+   
+    if(isset($_GET['sKey'])) {
+        $u_sKey = $_GET['sKey'];
+    }
+    if(isset($_GET['sText'])) {
+        $u_sText = $_GET['sText'];
+    }
+
+    $search_option .= "{$u_sKey} LIKE '%{$u_sText}%'"; 
 
     $conn = mysqli_connect("localhost", "root", "111111", "bo_table");
 
@@ -42,13 +52,11 @@
  $total_block = ceil($total_page / $block_cnt); //블록의 총 개수
  $page_start = ($page -1) * $list; //페이지의 시작 $page_start변수는 sql문에서 limit 조건을 걸때 사용
 
- $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board ORDER BY number DESC LIMIT $page_start, $list"; //(offset,row카운트)
+ $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board $search_option ORDER BY number DESC LIMIT $page_start, $list"; 
+ //(offset,row카운트)
  $result = mysqli_query($conn, $sql2);
-
-
-
- ?>
-   <h1 style="text-align: center;">자유게시판</h1>
+?>
+   <h1 style="text-align: center;">자유게시판!</h1>
     <table border="1" class="a">
     	<thead>
     		<tr>
@@ -121,13 +129,13 @@
      </div>
    
     <div style="text-align: center;">
-        <form action="search.php" method="get">
+        <form action="list.php" method="get">
             <select name="sKey">
-                <option value="0" selected>선택</option>
-                <option value="title">제목</option>
-                <option value="name">글쓴이</option>
+                <option value="0" <?=$u_sKey=="0"?"selected":"" ?>>선택</option>
+                <option value="title" <?=$u_sKey=="title"?"selected":"" ?>>제목</option>
+                <option value="name" <?=$u_sKey=="name"?"selected":"" ?>>글쓴이</option>
             </select>
-            <input type="text" name="sText">
+            <input type="text" name="sText" value="<?=$u_sText ?>">
             <input type="submit" value="검색">
          </form>
     </div>
