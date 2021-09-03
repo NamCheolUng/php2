@@ -12,10 +12,29 @@
    }else{
         $page = 1;
    }
+
+   /* 검색 시작 */
+    if(isset($_GET['sKey'])) {
+        $u_sKey = $_GET['sKey'];
+        $subString = '&amp;sKey='.$u_sKey;
+    }
+    if(isset($_GET['sText'])) {
+        $u_sText = $_GET['sText'];
+        $subString .= '&amp;sText='.$u_sText;
+    }
+    $search_option = "WHERE ";
+    $search_option .= "{$u_sKey} LIKE '%{$u_sText}%'";
+
     $conn = mysqli_connect("localhost", "root", "111111", "bo_table");
-    $sql = "SELECT * FROM board";
+    $sql = "SELECT * FROM board $search_option";
+    echo $sql;
+    exit;
     $data = mysqli_query($conn, $sql);
     $row_num = mysqli_num_rows($data); //모든 레코드 수, 데이터의 총 개수를 숫자로 반환
+
+
+    
+
     
  // $sql = "SELECT count(*) FROM board";
  // $data = mysqli_query($conn, $sql);
@@ -40,20 +59,7 @@
 
  
 
-  /* 검색 시작 */
-    if(isset($_GET['sKey'])) {
-        $u_sKey = $_GET['sKey'];
-        $subString = '&amp;sKey='.$u_sKey;
-    }
-    if(isset($_GET['sText'])) {
-        $u_sText = $_GET['sText'];
-        $subString .= '&amp;sText='.$u_sText;
-    }
-
-
-    $search_option = "WHERE ";
-    $search_option .= "{$u_sKey} LIKE '%{$u_sText}%'";
-
+  
     $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board $search_option ORDER BY number DESC LIMIT $page_start, $list";
     //(offset,row카운트)
 
@@ -67,10 +73,9 @@
 ?>
    <h1 style="text-align: center;">자유게시판!!!</h1>
     <table border="1" class="a">
-    	<thead>
-    		<tr>
-    			<th>No</th>
-    			<th>제목</th>
+        <thead>
+            <tr>
+                <th>No</th>
     			<th>글쓴이</th>
     			<th>작성일</th>
     		</tr>
