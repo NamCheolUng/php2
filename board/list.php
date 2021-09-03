@@ -1,8 +1,9 @@
 <?php
- include 'header.php';
+  include 'header.php';
 
     $u_sText = "";
     $u_sKey = "";
+    $subString = ""; 
 
     /* 페이징 시작 */
     //페이지 get 변수가 있다면 받아오고, 없다면 1페이지를 보여준다.
@@ -11,22 +12,7 @@
    }else{
         $page = 1;
    }
-
-   /* 검색 시작 */
-
-   $search_option = "WHERE";
-   
-    if(isset($_GET['sKey'])) {
-        $u_sKey = $_GET['sKey'];
-    }
-    if(isset($_GET['sText'])) {
-        $u_sText = $_GET['sText'];
-    }
-
-    $search_option .= "{$u_sKey} LIKE '%{$u_sText}%'"; 
-
     $conn = mysqli_connect("localhost", "root", "111111", "bo_table");
-
     $sql = "SELECT * FROM board";
     $data = mysqli_query($conn, $sql);
     $row_num = mysqli_num_rows($data); //모든 레코드 수, 데이터의 총 개수를 숫자로 반환
@@ -52,11 +38,34 @@
  $total_block = ceil($total_page / $block_cnt); //블록의 총 개수
  $page_start = ($page -1) * $list; //페이지의 시작 $page_start변수는 sql문에서 limit 조건을 걸때 사용
 
- $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board $search_option ORDER BY number DESC LIMIT $page_start, $list"; 
- //(offset,row카운트)
- $result = mysqli_query($conn, $sql2);
+ 
+
+  /* 검색 시작 */
+    if(isset($_GET['sKey'])) {
+        $u_sKey = $_GET['sKey'];
+        $subString = '&amp;sKey='.$u_sKey;
+    }
+    if(isset($_GET['sText'])) {
+        $u_sText = $_GET['sText'];
+        $subString .= '&amp;sText='.$u_sText;
+    }
+
+
+    $search_option = "WHERE ";
+    $search_option .= "{$u_sKey} LIKE '%{$u_sText}%'";
+
+    $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board $search_option ORDER BY number DESC LIMIT $page_start, $list";
+    //(offset,row카운트)
+
+    if (!isset($_GET['sKey'])){
+        if (!isset($_GET['sText'])) {
+            $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board ORDER BY number DESC LIMIT $page_start, $list";
+        }
+      } 
+
+    $result = mysqli_query($conn, $sql2);
 ?>
-   <h1 style="text-align: center;">자유게시판!</h1>
+   <h1 style="text-align: center;">자유게시판!!!</h1>
     <table border="1" class="a">
     	<thead>
     		<tr>
@@ -89,14 +98,14 @@
     if ($page <= 1) {
         echo "<a href=\"#\">처음</a>";
     } else {
-        echo "<a href=\"list.php?page=1\">처음</a>";
+        echo "<a href=\"list.php?page=1$subString\">처음</a>";
     }
 
     if ($page <= 1) {
     //
     } else {
         $pre = $page - 1;
-        echo "<a href=\"list.php?page=$pre\">◀ 이전</a>";
+        echo "<a href=\"list.php?page=$pre$subString\">◀ 이전</a>";
     }
 
     for ($i = $block_start; $i <= $block_end; $i++) { 
@@ -111,14 +120,14 @@
         // 
     }else{
         $next = $page + 1;
-        echo "<a href=\"list.php?page=$next\">다음 ▶</a>";
+        echo "<a href=\"list.php?page=$next$subString\">다음 ▶</a>";
 
     }
 
     if ($page >= $total_page) {
          echo "<a href=\"#\">마지막</a>";
     }else{
-        echo "<a href=\"list.php?page=$total_page\">마지막</a>";
+        echo "<a href=\"list.php?page=$total_page$subString\">마지막</a>";
 
     }
 ?>
@@ -131,11 +140,11 @@
     <div style="text-align: center;">
         <form action="list.php" method="get">
             <select name="sKey">
-                <option value="0" <?=$u_sKey=="0"?"selected":"" ?>>선택</option>
-                <option value="title" <?=$u_sKey=="title"?"selected":"" ?>>제목</option>
-                <option value="name" <?=$u_sKey=="name"?"selected":"" ?>>글쓴이</option>
+               <!-- <option value="0" <?php echo $u_sKey=="0"?"selected":"" ?>>선택</option>  --> 
+                <option value="title" <?php echo $u_sKey=="title"?"selected":"" ?>>제목</option>
+                <option value="name" <?php echo $u_sKey=="name"?"selected=":"" ?>>글쓴이</option>
             </select>
-            <input type="text" name="sText" value="<?=$u_sText ?>">
+            <input type="text" name="sText" value="<?php echo $u_sText ?>">
             <input type="submit" value="검색">
          </form>
     </div>
