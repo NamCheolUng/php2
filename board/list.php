@@ -16,21 +16,33 @@
    /* 검색 시작 */
     if(isset($_GET['sKey'])) {
         $u_sKey = $_GET['sKey'];
-        $subString = '&amp;sKey='.$u_sKey;
+        // $subString = '&amp;sKey='.$u_sKey;
+        $subString = "&amp;sKey=$u_sKey";
     }
     if(isset($_GET['sText'])) {
         $u_sText = $_GET['sText'];
-        $subString .= '&amp;sText='.$u_sText;
+        // $subString .= '&amp;sText='.$u_sText;
+        $subString .= "&amp;sText=$u_sText";
+
     }
-    $search_option = "WHERE ";
-    $search_option .= "{$u_sKey} LIKE '%{$u_sText}%'";
+    if(isset($_GET['sKey']) && isset($_GET['sText'])){
+        $search_option = "WHERE {$u_sKey} LIKE '%{$u_sText}%'";
+    }else{
+        $search_option = "";
+    }
+
+    // $search_option = "WHERE ";
+    // $search_option .= "{$u_sKey} LIKE '%{$u_sText}%'";
 
     $conn = mysqli_connect("localhost", "root", "111111", "bo_table");
     $sql = "SELECT * FROM board $search_option";
-    echo $sql;
-    exit;
+      
+    // $sql = "SELECT * FROM board";
+   
     $data = mysqli_query($conn, $sql);
     $row_num = mysqli_num_rows($data); //모든 레코드 수, 데이터의 총 개수를 숫자로 반환
+    
+
 
 
     
@@ -60,24 +72,30 @@
  
 
   
-    $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board $search_option ORDER BY number DESC LIMIT $page_start, $list";
+    $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created, hit FROM board $search_option ORDER BY number DESC LIMIT $page_start, $list";
     //(offset,row카운트)
 
-    if (!isset($_GET['sKey'])){
-        if (!isset($_GET['sText'])) {
-            $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board ORDER BY number DESC LIMIT $page_start, $list";
-        }
-      } 
+    // if (!isset($_GET['sKey'])){
+    //     if (!isset($_GET['sText'])) {
+    //         $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created FROM board ORDER BY number DESC LIMIT $page_start, $list";
+    //     }
+    //   } 
+    if (!isset($_GET['sKey']) && !isset($_GET['sText'])) {
+        $sql2 = "SELECT ROW_NUMBER() OVER(ORDER BY number) AS row, number, title, name, created, hit FROM board ORDER BY number DESC LIMIT $page_start, $list";
+
+    }
 
     $result = mysqli_query($conn, $sql2);
 ?>
-   <h1 style="text-align: center;">자유게시판!!!</h1>
-    <table border="1" class="a">
+   <h1 style="text-align: center;">자유게시판</h1>
+    <table border="1" class="ta">
         <thead>
             <tr>
                 <th>No</th>
+                <th>제목</th>
     			<th>글쓴이</th>
-    			<th>작성일</th>
+                <th>작성일</th>
+    			<th>조회수</th>
     		</tr>
     	</thead>
 <?php
@@ -88,9 +106,11 @@
        		<tr>
                 <!-- <td><?=$row['number']?></td> -->
     			<td><?=$row['row']?></td>
-                <td><a href="view.php?number=<?=$row['number']?>"><?=$row['title']?></a></td>
+                <!-- <td><a href="view.php?number=<?=$row['number']?>"><?=$row['title']?></a></td> -->
+                <td><a href="view.php?number=<?php echo $row['number']?>"><?php echo $row['title']?></a></td>
     			<td><?=$row['name']?></td>
-    			<td><?=$row['created']?></td>
+                <td><?=$row['created']?></td>
+    			<td><?=$row['hit']?></td>
     		</tr>
     	</tbody>  
 <?php
@@ -117,7 +137,7 @@
         if ($page == $i) {
             echo "<strong>[$i]</strong>";
         }else{
-            echo "<a href=\"list.php?page={$i}\">[$i]</a>";
+            echo "<a href=\"list.php?page={$i}$subString\">[$i]</a>";
         }
     }
 
@@ -157,3 +177,4 @@
 <?php
     include 'footer.php'; 
 ?>
+
