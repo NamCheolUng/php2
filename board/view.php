@@ -44,7 +44,9 @@
     <div>
         <span><?=$reply['name']?></span><br>
         <span><?=$reply['content']?></span><br>
-        <span><?=$reply['date']?></span>
+        <span><?=$reply['date']?></span><br>
+       <button type = "button" onclick="location.href='reply_up.php?b_num=<?=$row['number']?>'">수정</button>
+       <button type = "button" onclick="location.href='reply_de.php?b_num=<?=$row['number']?>'">삭제</button>
     </div>
 
 <?php
