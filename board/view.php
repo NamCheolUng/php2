@@ -12,11 +12,10 @@
 
 
  	$result = mysqli_query($conn, $sql);
+    $row=mysqli_fetch_array($result);
 ?>
   <h1>상세보기</h1>
-<?php
-    if ($row=mysqli_fetch_array($result)) {
-  ?>
+
    <div>
    	 <span>제목 : <?=$row['title']?></span>
    	 <span>글쓴이 : <?=$row['name']?></span>
@@ -29,15 +28,43 @@
        <button type = "button" onclick="location.href='update.php?number=<?=$row['number']?>'">수정</button>
        <button type = "button" onclick="location.href='delete.php?number=<?=$row['number']?>'">삭제</button>
    </div>
-<?php 
-   	} 
-   	mysqli_close($conn);
-?>
+
    <div>
        <button type = "button" onclick="location.href='list.php'">게시판으로이동하기</button>
    </div>
 
+   <h3>댓글목록</h3>
+
+    <?php
+     $sql2 = "SELECT * FROM reply WHERE b_num = ' $view_num' ORDER BY idx DESC"; 
+    $result = mysqli_query($conn, $sql2);
+    while ($reply=mysqli_fetch_array($result)) {
+    ?>
+
+    <div>
+        <span><?=$reply['name']?></span><br>
+        <span><?=$reply['content']?></span><br>
+        <span><?=$reply['date']?></span>
+    </div>
+
 <?php
+}
+ 
+?>
+
+    <div>
+        <form action="reply_ok.php?b_num=<?=$row['number']?>" method="post">
+            <fieldset>
+                <legend>댓글</legend>
+                    <p><input type="text" name="name" placeholder="작성자 입력"></p>
+                    <p><textarea name="content" cols="50" rows="5" placeholder="댓글 작성란"></textarea> <input type="submit" value="등록"></p>
+            </fieldset>
+        </form>
+    </div>
+
+
+<?php
+    mysqli_close($conn);
     include 'footer.php'; 
  
 ?>
