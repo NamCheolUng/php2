@@ -36,7 +36,7 @@
    <h3>댓글목록</h3>
 
     <?php
-     $sql2 = "SELECT * FROM reply WHERE b_num = ' $view_num' ORDER BY idx DESC"; 
+    $sql2 = "SELECT * FROM reply WHERE b_num = ' $view_num' ORDER BY idx DESC"; 
     $result = mysqli_query($conn, $sql2);
     while ($reply=mysqli_fetch_array($result)) {
     ?>
