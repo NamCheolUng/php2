@@ -9,9 +9,7 @@
     mysqli_query($conn, $sql1);
 
     $sql = "SELECT * FROM board WHERE number = '$view_num'";
-
-
- 	$result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
     $row=mysqli_fetch_array($result);
 ?>
   <h1>상세보기</h1>
@@ -20,6 +18,7 @@
    	 <span>제목 : <?=$row['title']?></span>
    	 <span>글쓴이 : <?=$row['name']?></span>
      <span>조회수  : <?=$row['hit']?></span>
+     <span>작성일  : <?=$row['created']?></span>
    </div>
    <div>
    	  <span>내용 : <?=$row['message']?></span>
@@ -42,16 +41,15 @@
     ?>
 
     <div>
-        <span><?=$reply['name']?></span><br>
-        <span><?=$reply['content']?></span><br>
-        <span><?=$reply['date']?></span><br>
+        <div><span><?=$reply['name']?></span></div>
+        <div><span><?=$reply['content']?></span></div>
+        <div><span><?=$reply['date']?></span></div>
        <button type = "button" onclick="location.href='reply_up.php?b_num=<?=$row['number']?>'">수정</button>
-       <button type = "button" onclick="location.href='reply_de.php?b_num=<?=$row['number']?>'">삭제</button>
+       <button type = "button" onclick="location.href='reply_del.php?b_num=<?=$row['number']?>'">삭제</button>
     </div>
 
 <?php
 }
- 
 ?>
 
     <div>
@@ -68,5 +66,4 @@
 <?php
     mysqli_close($conn);
     include 'footer.php'; 
- 
 ?>
