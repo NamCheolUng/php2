@@ -3,11 +3,12 @@
 
  	$conn = mysqli_connect("localhost", "root", "111111", "bo_table");
 
- 	$re_num = $_GET['b_num'];
-	$re_name = $_POST['name'];
+ 	$re_b_num = $_GET['b_num'];
+ 	$re_name = $_POST['name'];
 	$re_content = $_POST['content'];
 
-	$sql = "INSERT INTO reply(b_num, name, content) VALUES('$re_num', '$re_name', '$re_content')";
+    $sql = "INSERT INTO reply(b_num, name, content) VALUES('$re_num', '$re_name', '$re_content')";
+	
 	
 	$result = mysqli_query($conn, $sql);
 
@@ -22,7 +23,7 @@
 ?>
     <script type="text/javascript">
     	alert("댓글이 작성되엇습니다.");
-    	location.href="view.php?number=<?php echo $re_num?>";
+    	location.href="view.php?number=<?php echo $re_b_num?>";
     </script>
 <?php
 }
