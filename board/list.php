@@ -42,12 +42,6 @@
     $data = mysqli_query($conn, $sql);
     $row_num = mysqli_num_rows($data); //모든 레코드 수, 데이터의 총 개수를 숫자로 반환
     
-
-
-
-    
-
-    
  // $sql = "SELECT count(*) FROM board";
  // $data = mysqli_query($conn, $sql);
  // $row = mysqli_fetch_array($data); 
@@ -86,8 +80,9 @@
     }
 
     $result = mysqli_query($conn, $sql2);
+
 ?>
-   <h1 style="text-align: center;">자유게시판</h1>
+   <h1 style="text-align: center;">자유게시판!</h1>
     <table border="1" class="ta">
         <thead>
             <tr>
@@ -100,14 +95,16 @@
     	</thead>
 <?php
     while ($row=mysqli_fetch_array($result)) {
-
+          $sql3 = "SELECT * FROM reply WHERE b_num ='".$row['number']."'";
+          $dc = mysqli_query($conn,$sql3);
+          $rep_count = mysqli_num_rows($dc);
 ?>
         <tbody>
        		<tr>
                 <!-- <td><?=$row['number']?></td> -->
     			<td><?=$row['row']?></td>
                 <!-- <td><a href="view.php?number=<?=$row['number']?>"><?=$row['title']?></a></td> -->
-                <td><a href="view.php?number=<?php echo $row['number']?>"><?php echo $row['title']?></a></td>
+                <td><a href="view.php?number=<?php echo $row['number']?>"><?php echo $row['title']?><span class="re_ct">[<?php echo $rep_count?>]</span></a></td>
     			<td><?=$row['name']?></td>
                 <td><?=$row['created']?></td>
     			<td><?=$row['hit']?></td>
