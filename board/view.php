@@ -45,7 +45,10 @@
         <div><span><?=$reply['content']?></span></div>
         <div><span><?=$reply['date']?></span></div>
        <button type = "button" onclick="location.href='reply_up.php?b_num=<?=$row['number']?>'">수정</button>
-       <button type = "button" onclick="location.href='reply_del.php?b_num=<?=$row['number']?>'">삭제</button>
+       <form action="reply_del.php?b_num=<?=$row['number']?>" method="post">
+         <input type="hidden" name="idx" value="<?=$reply['idx']?>">
+         <input type="submit" value="삭제">
+       </form>
     </div>
 
 <?php
@@ -61,7 +64,6 @@
             </fieldset>
         </form>
     </div>
-
 
 <?php
     mysqli_close($conn);
