@@ -2,8 +2,8 @@
    include 'header.php';
 
     $conn = mysqli_connect("localhost", "root", "111111", "bo_table");
-    $re_up_num = $_GET['b_num'];
-    $sql = "SELECT * FROM reply WHERE b_num = '$re_up_num'";
+    $re_up_b_num = $_GET['b_num'];
+    $sql = "SELECT * FROM reply WHERE b_num = '$re_up_b_num'";
 
     $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_array($result);
