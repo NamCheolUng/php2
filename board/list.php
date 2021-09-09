@@ -117,7 +117,7 @@
     </table>
     <div style="text-align: center;">
     <?php
-    if ($page <= 1) {
+    if ($page <= 1) { //$page >= 1 이렇게 하면 page가 2일때 true라서 처음눌렀을때 반응안함.
         echo "<a href=\"#\">처음</a>";
     } else {
         echo "<a href=\"list.php?page=1$subString\">처음</a>";
@@ -138,7 +138,7 @@
         }
     }
 
-    if ($page >= $total_page) {
+    if ($page >= $total_page) { 
         // 
     }else{
         $next = $page + 1;
