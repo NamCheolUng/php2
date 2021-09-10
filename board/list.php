@@ -1,5 +1,7 @@
 <?php
+  $title = "게시판";
   include 'header.php';
+
 
     $u_sText = "";
     $u_sKey = "";
@@ -82,7 +84,8 @@
     $result = mysqli_query($conn, $sql2);
 
 ?>
-   <h1 style="text-align: center;">자유게시판!</h1>
+   <h1 style="text-align: center;">자유게시판</h1>
+
     <table border="1" class="ta">
         <thead>
             <tr>
