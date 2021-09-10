@@ -1,4 +1,6 @@
 <?php
+  $title = "상세보기";
+
     include 'header.php';
 
     $conn = mysqli_connect("localhost", "root", "111111", "bo_table");
@@ -21,7 +23,7 @@
      <span>작성일  : <?=$row['created']?></span>
    </div>
    <div>
-   	  <span>내용 : <?=$row['message']?></span>
+   	  <span><?=$row['message']?></span>
    </div>
    <div>
        <button type = "button" onclick="location.href='update.php?number=<?=$row['number']?>'">수정</button>
