@@ -1,4 +1,5 @@
 <?php
+ $title = "댓글수정";
    include 'header.php';
 
     $conn = mysqli_connect("localhost", "root", "111111", "bo_table");
