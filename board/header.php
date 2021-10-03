@@ -70,7 +70,7 @@
              tabsize: 2,
              height: 200,
              width : 1000,
-             lang : "ko-KR",
+             lang : "ko-KR", //메뉴를 한글로 표시
              toolbar: [
 		    // 글꼴 설정
 		    ['fontname', ['fontname']],
