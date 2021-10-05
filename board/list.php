@@ -167,8 +167,8 @@
         <form action="list.php" method="get">
             <select name="sKey">
                <!-- <option value="0" <?php echo $u_sKey=="0"?"selected":"" ?>>선택</option>  --> 
-                <option value="title" <?php echo $u_sKey=='title'?'selected="selected"':'' ?>>제목</option>
-                <option value="name" <?php echo $u_sKey=="name"?"selected='selected'":null ?>>글쓴이</option>
+                <option value="title" <?php echo $u_sKey=='title'?'selected="selected"':"" ?>>제목</option>
+                <option value="name" <?php echo $u_sKey=="name"?"selected='selected'":'NULL' ?>>글쓴이</option>
             </select>
             <input type="text" name="sText" value="<?php echo isset($u_sText)?$u_sText:null ?>"> 
             <input type="submit" value="검색">
