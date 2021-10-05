@@ -99,6 +99,7 @@
 <?php
     while ($row=mysqli_fetch_array($result)) {
           $sql3 = "SELECT * FROM reply WHERE b_num ='".$row['number']."'";
+          // $sql3 = "SELECT * FROM reply WHERE b_num ={$row['number']}";
           $dc = mysqli_query($conn,$sql3);
           $rep_count = mysqli_num_rows($dc);
 ?>
@@ -159,17 +160,17 @@
 </div>
 
      <div style="text-align: center;">
-        <button type = "button" onclick="location.href='write.html'">글쓰기</button>
+        <button type = "button" onclick="location.href='write.php'">글쓰기</button>
      </div>
    
     <div style="text-align: center;">
         <form action="list.php" method="get">
             <select name="sKey">
                <!-- <option value="0" <?php echo $u_sKey=="0"?"selected":"" ?>>선택</option>  --> 
-                <option value="title" <?php echo $u_sKey=="title"?"selected":"" ?>>제목</option>
-                <option value="name" <?php echo $u_sKey=="name"?"selected=":"" ?>>글쓴이</option>
+                <option value="title" <?php echo $u_sKey=='title'?'selected="selected"':'' ?>>제목</option>
+                <option value="name" <?php echo $u_sKey=="name"?"selected='selected'":null ?>>글쓴이</option>
             </select>
-            <input type="text" name="sText" value="<?php echo $u_sText ?>">
+            <input type="text" name="sText" value="<?php echo isset($u_sText)?$u_sText:null ?>"> 
             <input type="submit" value="검색">
          </form>
     </div>
