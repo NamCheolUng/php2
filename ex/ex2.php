@@ -16,5 +16,7 @@ if (move_uploaded_file($_FILES['upload']['tmp_name'], $uploadfile)) {
 }
 
 
+//move_uploaded_file($_FILES['test']['tmp_name'],'./abcd'.$_FILES['test']['name']); //abcd 폴더에 파일원래이름 그대로 저장
+
 
 ?>
