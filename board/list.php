@@ -18,9 +18,13 @@
    /* 검색 시작 */
     if(isset($_GET['sKey'])) {
         $u_sKey = $_GET['sKey'];
-        // $subString = '&amp;sKey='.$u_sKey;
+          // $subString = '&amp;sKey='.$u_sKey;
         $subString = "&amp;sKey=$u_sKey";
+        if($u_sKey == ''){
+           header("location:list.php");
+        }
     }
+
     if(isset($_GET['sText'])) {
         $u_sText = $_GET['sText'];
         // $subString .= '&amp;sText='.$u_sText;
@@ -89,7 +93,7 @@
     <table border="1" class="ta">
         <thead>
             <tr>
-                <th>No</th>
+                <th>번호</th>
                 <th>제목</th>
     			<th>글쓴이</th>
                 <th>작성일</th>
@@ -106,8 +110,8 @@
         <tbody>
        		<tr>
                 <!-- <td><?=$row['number']?></td> -->
-    			<td><?=$row['row']?></td>
-                <!-- <td><a href="view.php?number=<?=$row['number']?>"><?=$row['title']?></a></td> -->
+               <td><?=$row['row']?></td> 
+                 <!-- <td><a href="view.php?number=<?=$row['number']?>"><?=$row['title']?></a></td> -->
                 <td><a href="view.php?number=<?php echo $row['number']?>"><?php echo $row['title']?><span class="re_ct">[<?php echo $rep_count?>]</span></a></td>
     			<td><?=$row['name']?></td>
                 <td><?=$row['created']?></td>
@@ -166,7 +170,7 @@
     <div style="text-align: center;">
         <form action="list.php" method="get">
             <select name="sKey">
-               <!-- <option value="0" <?php echo $u_sKey=="0"?"selected":"" ?>>선택</option>  --> 
+                <option value="" selected="selected">선택</option>
                 <option value="title" <?php echo $u_sKey=='title'?'selected="selected"':"" ?>>제목</option>
                 <!-- <option value="name" <?php echo $u_sKey=="name"?"selected='selected'":'NULL' ?>>글쓴이</option> -->
                 <option value="name" <?php if($u_sKey=="name"){?>selected<?php } ?>>글쓴이</option>
