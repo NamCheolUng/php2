@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>
+		
+	</title>
+	<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+	
+</head>
+<body>
+				<form action="2.php" method="post">
+                    <input type="checkbox" id="checkAll" class="chk">
+                    <span><small>전체</small></span>
+                    
+                    <input type="checkbox" name="check[]" class="chk" value="1">
+                    <span ><small>사과</small></span>
+              
+                    <input type="checkbox" name="check[]" class="chk" value="2">
+                    <span ><small>레몬</small></span>
+              
+                    <input type="checkbox" name="check[]" class="chk" value="3" >
+                    <span><small>딸기</small></span>
+                
+                    <input type="submit" name="전송">
+                </form>
+                </body>
+	
+  <script>
+	$(function(){
+
+    // 전체선택 버튼 클릭시 체크박스 전체 선택
+    $("#checkAll").click(function(){
+        if($("#checkAll").is(":checked")){   //is함수 선택한 요소에서 주어진 선택자가 있는지 판별합니다.,메서드는 선택된 요소 객체의 특징을 판별합니다
+            $(".chk").prop("checked", true);  // prop함수 javaScript 요소의 속성 값을 설정하거나 반환합니다.
+        } else {
+            $(".chk").prop("checked", false);
+        }
+    });
+ 
+    // 전체 선택 중 한개의 체크박스 선택 해제 시 전체선택 체크박스 해제
+    $(".chk").click(function(){
+        if($("input[name='check[]']:checked").length == 3){
+            $("#checkAll").prop("checked", true);
+        }else{
+            $("#checkAll").prop("checked", false);
+        }
+    });
+
+});
+</script>
+
+
+</body>
+</html>
