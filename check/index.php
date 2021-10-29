@@ -2,8 +2,11 @@
 
 
 	$conn = mysqli_connect("localhost", "root", "111111", "ex");
-   
-    $sql = "SELECT * FROM checkbox";
+    $no = 14;
+    $chked1 = '';
+    $chked2 = '';
+    $chked3 = '';
+    $sql = "SELECT * FROM checkbox WHERE idx = '$no'";
 
     $result = mysqli_query($conn,$sql);
 
@@ -24,9 +27,15 @@
         $chked3 = "checked";
         break;
         }
+
+        // $chk[$i] == 1 ? $chked1 = 'checked': '';
+        // $chk[$i] == 2 ? $chked2 = 'checked': '';
+        // $chk[$i] == 3 ? $chked3 = 'checked': '';
+
+
     }
 
-
+  
 
 
 ?>
