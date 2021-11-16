@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calculation</title>
+<style>
+
+p{
+    height: 20px;
+}
+
+
+fieldset{
+    width: 150px;
+    height:200px;
+    margin-left:auto; 
+    margin-right:auto;
+    margin-top: 100px;
+    border: 1px solid #eb0918;
+
+}
+ 
+#calc input[type=button] {
+    border: thin solid #1ad1ff;
+    width: 25px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+}
+ 
+#number {
+    width: 150px;
+    background-color: #b3f0ff;
+    border: none;
+}
+
+</style>
+
+<script>
+
+
+
+function enter() {
+    if(event.keyCode==13){
+        answer();
+    }
+
+}
+
+function cal(num){
+    number.value += num;
+}  
+ 
+function answer(){
+    try{
+        number.value = eval(number.value);
+    }catch(e){
+        alert('잘못된 입력입니다.');
+    }
+}
+ 
+function clearcal(){
+    number.value = "";
+}
+ 
+</script>
+</head>
+<body>
+
+    <!-- <form name="myform" id="calc" onsubmit="return false;"> -->
+        <div name="myform" id="calc"> 
+        <fieldset >
+            <p><input type="text" id="number" onkeyup="enter();"></p>
+
+           
+            <p>
+            <input type="button" value="1" onclick="cal(1)">
+            <input type="button" value="2" onclick="cal(2)">
+            <input type="button" value="3" onclick="cal(3)">
+            <input type="button" value="4" onclick="cal(4)">
+            <input type="button" value="5" onclick="cal(5)">
+            </p>
+
+            <p>
+            <input type="button" value="6" onclick="cal(6)">
+            <input type="button" value="7" onclick="cal(7)">
+            <input type="button" value="8" onclick="cal(8)">
+            <input type="button" value="9" onclick="cal(9)">
+            <input type="button" value="0" onclick="cal(0)">
+            </p>
+
+            <p>
+            <input type="button" value="/" onclick="cal('/')">
+            <input type="button" value="*" onclick="cal('*')">
+            <input type="button" value="-" onclick="cal('-')">
+            <input type="button" value="+" onclick="cal('+')">
+            <input type="button" value="=" onclick="answer()">
+            </p>
+
+            <p>
+            <input type="button" value="C" onclick="clearcal()">
+            </p>
+
+        </fieldset>
+    <!-- </form> -->
+</div>
+</body>
+</html>
