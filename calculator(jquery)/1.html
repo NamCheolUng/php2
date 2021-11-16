@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+	<style type="text/css">
+caption {
+   font-size: 32px;
+}
+
+table {
+   width: 320px;
+   border-collapse: collapse;
+   margin-left:auto; 
+   margin-right:auto;
+   margin-top: 100px;
+}
+
+table,
+th {
+   background: #333;
+}
+
+th {
+   padding: 0 10px 0 0;
+   height: 80px;
+}
+
+td {
+   padding: 0;
+   height: 75px;
+   border: 1px solid #333;
+   text-align: center;
+}
+
+th>input {
+   padding: 0;
+   width: 100%;
+   border: none;
+   background: #333;
+   color: #fff;
+   text-align: right;
+   font-size: 48px;
+}
+
+td>input {
+   width: 100%;
+   height: 100%;
+   font-size: 36px;
+   color: #333;
+   border: none;
+}
+
+td>input:hover {
+   background: #999;
+}
+
+td:last-child>input {
+   background: orange;
+   color: #fff;
+}
+</style>
+</head>
+<body>
+<form action="" name="cal" onsubmit="return false;">
+   <table>
+      <caption>계산기</caption>
+      <tbody>
+         <tr>
+            <th colspan="4"><input type="text" name="result" value="0" class="enter"></th>
+         </tr>
+         <tr>
+            <td><input type="button" value="7"></td>
+            <td><input type="button" value="8"></td>
+            <td><input type="button" value="9"></td>
+            <td><input type="button" value="+"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="4"></td>
+            <td><input type="button" value="5"></td>
+            <td><input type="button" value="6"></td>
+            <td><input type="button" value="-"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="1"></td>
+            <td><input type="button" value="2"></td>
+            <td><input type="button" value="3"></td>
+            <td><input type="button" value="*"></td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button" value="0"></td>
+            <td><input type="button" value="%"></td>
+            <td><input type="button" value="/"></td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button" class="cls_btn" value="clear"></td>
+            <td colspan="2"><input type="button" class="result_btn" value="="></td>
+         </tr>
+      </tbody>
+   </table>
+</form>
+
+<script type="text/javascript">
+
+$(".enter").keypress(function(e) {
+	if(e.keyCode == 13){
+		myResult();
+	}
+});
+
+
+var $inp = $('form[name="cal"]'),
+   $input = $inp.find('input'),
+   $clsBtn = $('.cls_btn'),
+   $resultBtn = $('.result_btn'),
+   $result = $inp.find('input[name="result"]');
+
+
+function clr() {
+   $result.val(0);
+}
+
+
+
+
+function myResult() {
+   var calc = eval($result.val());
+
+   $result.val(calc);
+}
+
+function calc(value) {
+
+   if ($result.val() == 0) {
+      $result.val('');
+   }
+
+   var val = $result.val() + value;
+   $result.val(val);
+  
+}
+
+
+$input.on('click', function() {
+
+   var $inputValue = $(this).val();
+
+   if ($inputValue != '=' && $inputValue != 'clear') {
+      calc($inputValue);
+   }
+
+});
+
+ $clsBtn.on('click', clr);
+
+
+ $resultBtn.on('click', function(){
+   try {
+      myResult();
+   } 
+   catch {
+      $result.val('error!');
+   }
+}); 
+
+</script>
+
+</body>
+</html>
