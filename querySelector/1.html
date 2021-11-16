@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+
+	<h1>CSS 선택자를 이용한 선택</h1>
+	<p class="odd">첫 번째 단락이에요!</p>
+	<ul id ="A">
+		<li class="odd">첫 번째 아이템이에요!</li>
+		<li id="a">두 번째 아이템이에요!</li>
+		<li class="odd">세 번째 아이템이에요!</li>
+		<li id="b">네 번째 아이템이에요!</li>
+		<li class="odd">다섯 번째 아이템이에요!</li>
+	</ul>
+
+	<script>
+		var selectedItem = document.querySelectorAll("#A .odd");	// 클래스가 "odd"인 요소 중에서 <li> 요소만을 선택함.
+		for (var i = 0; i < selectedItem.length; i++) {
+		var	a = selectedItem.item(i);
+			a.style.color = "blue";			// 선택된 모든 요소의 텍스트 색상을 변경함.
+		}
+	</script>
+
+
+	
+</script>
+
+</body>
+</html>
