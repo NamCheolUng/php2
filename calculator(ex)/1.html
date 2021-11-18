@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+		<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<input type="text" id="su1">
+
+<select id="oper">
+
+	<option value="plus">더하기</option>
+
+	<option value="minus">빼기</option>
+
+	<option value="multip">곱하기</option>
+
+	<option value="half">나누기</option>
+
+</select>
+
+<input type="text" id="su2">
+
+<input type="button" value="=" class="result">
+
+<div id="resultDIV" style="display: none;"></div>
+
+<script type="text/javascript">
+
+     $(document).on("click",".result",function() {
+     	var su1 = $("#su1").val();
+     	var su2 = $("#su2").val();
+     	var oper = $("#oper").val();
+
+        var action = "2.php";
+     	$.ajax({
+     		type:"post",
+     		url:action,
+     		data:'su1='+su1+'&su2='+su2+'&oper='+oper,
+     		success:function(response){
+     			$("#resultDIV").empty();
+     			$("#resultDIV").before(
+                      '<div id="resultDIV";">' + 
+                        response +
+                      '</div>'
+     				);
+     		}
+
+     	});
+
+     });
+
+
+</script>
+
+</body>
+</html>
