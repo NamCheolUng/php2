@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="cal.css">
+</head>
+<body>
+<form action="" name="cal" onsubmit="return false;">
+   <table>
+      <caption>계산기</caption>
+      <tbody>
+         <tr>
+            <th colspan="4"><input type="text" name="result" value="" class="enter"></th>
+         </tr>
+         <tr>
+            <td><input type="button" value="7"></td>
+            <td><input type="button" value="8"></td>
+            <td><input type="button" value="9"></td>
+            <td><input type="button" value="+"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="4"></td>
+            <td><input type="button" value="5"></td>
+            <td><input type="button" value="6"></td>
+            <td><input type="button" value="-"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="1"></td>
+            <td><input type="button" value="2"></td>
+            <td><input type="button" value="3"></td>
+            <td><input type="button" value="*"></td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button" value="0"></td>
+            <td><input type="button" value="%"></td>
+            <td><input type="button" value="/"></td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button" class="cls_btn" value="clear"></td>
+            <td colspan="2"><input type="button" class="result_btn" value="="></td>
+         </tr>
+      </tbody>
+   </table>
+</form>
+
+<script type="text/javascript">
+
+// $(".enter").keypress(function(e) {
+//    if(e.keyCode == 13){
+//       myResult();
+//    }
+// });
+
+
+ var $inp = $('form[name="cal"]');
+ var $input = $inp.find('input');
+ var $clsBtn = $('.cls_btn');
+ var $resultBtn = $('.result_btn');
+ var $result = $inp.find('input[name="result"]');
+ var $sum = '';
+
+$input.on('click', function() {
+
+   var $inputValue = $(this).val();
+
+   if($inputValue=="+") {
+      $inputValue = encodeURIComponent('+');
+   }
+
+   var $result = $inp.find('input[name="result"]').val();
+   var $clsBtn = $('.cls_btn').val();
+   var $resultBtn = $('.result_btn').val();
+
+   var action = "cal.php";
+
+   $.ajax({
+      type:"POST",
+      url:action,
+      data:'inputValue='+$inputValue+'&result='+$result+'&clsBtn='+$clsBtn+'&resultBtn='+$resultBtn,
+      success: function(data){
+
+      
+      if(data['cls'] == 'clear'){
+         alert('here');
+         return false;
+      }else if(data['num'] == 'num'){
+         alert('here');
+         return false;
+      }
+
+      }
+   });
+});
+
+
+
+// function myResult() {
+//    $calc = eval($result.val());
+
+//    $result.val($calc);
+// }
+
+
+ // $clsBtn.on('click', clr);
+
+// function clr() {
+//    $result.val(0);
+// }
+ 
+
+//  $resultBtn.on('click', function(){
+//    try {
+//       myResult();
+//    } 
+//    catch {
+//       $result.val('error!');
+//    }
+// });
+ 
+
+</script>
+
+</body>
+</html>
