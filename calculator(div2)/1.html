@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="cal.css">
+</head>
+<body>
+<form action="" name="cal" onsubmit="return false;">
+   <table>
+      <caption>계산기</caption>
+      <tbody>
+         <tr>
+            <th colspan="4"><input type="text" name="result" value="" class="final"></th>
+         </tr>
+         <tr>
+            <td><input type="button" value="7" class="num"></td>
+            <td><input type="button" value="8" class="num"></td>
+            <td><input type="button" value="9" class="num"></td>
+            <td><input type="button" value="+" class="oper"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="4" class="num"></td>
+            <td><input type="button" value="5" class="num"></td>
+            <td><input type="button" value="6" class="num"></td>
+            <td><input type="button" value="-" class="oper"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="1" class="num"></td>
+            <td><input type="button" value="2" class="num"></td>
+            <td><input type="button" value="3" class="num"></td>
+            <td><input type="button" value="*" class="oper"></td>
+         </tr>
+         <tr>
+            <td colspan="3"><input type="button" value="0" class="num"></td>
+            <td><input type="button" value="/" class="oper"></td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button"  value="clear" class="clear"></td>
+            <td colspan="2"><input type="button"  value="=" class="result"></td>
+         </tr>
+      </tbody>
+   </table>
+</form>
+
+<script type="text/javascript">
+
+ // var $inp = $('form[name="cal"]');
+ // var $input = $inp.find('input');
+ // var $clsBtn = $('.cls_btn');
+ // var $resultBtn = $('.result_btn');
+ // var $result = $inp.find('input[name="result"]');
+
+
+var sum = '';
+
+$(document).on("click",".num",function(){
+  
+   var number = $(this).val();
+   var action ="num.php";
+   $.ajax({
+     type:"post",
+     url:action,
+     data:'number='+number,
+     success:function(response){
+      sum += response;
+       $(".final").val(sum); 
+     }
+    
+
+   });
+});
+
+
+$(document).on("click",".oper",function(){
+  
+   var oper = $(this).val();
+
+   if(oper=="+") {
+      oper = encodeURIComponent('+');
+   }
+      var action ="oper.php";
+   $.ajax({
+     type:"post",
+     url:action,
+     data:'oper='+oper,
+     success:function(response){
+  
+      sum += response;
+       $(".final").val(sum); 
+     }
+    
+
+   });
+});
+
+
+   $(document).on("click",".clear",function(){
+   var clear = $(this).val();
+  
+   var action = "clear.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'clear='+clear,
+      success:function(response){
+        var chk = response;
+        if(chk == 'clear'){
+         $(".final").val(0);
+         sum = '';
+        }
+      }
+  });
+  
+
+});
+
+ $(document).on("click",".result",function(){
+   var result = $(this).val();
+  
+   var action = "result.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'result='+result,
+      success:function(response){
+        var chk = response;
+        if(chk == '='){
+         var a = eval(sum);
+
+         $(".final").val(a);
+         
+      }
+   }
+  });
+  
+
+});
+ 
+
+
+
+ 
+
+
+
+ 
+ 
+
+ 
+
+
+
+</script>
+
+</body>
+</html>
