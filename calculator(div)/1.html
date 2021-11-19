@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="cal.css">
+</head>
+<body>
+<form action="" name="cal" onsubmit="return false;">
+   <table>
+      <caption>계산기</caption>
+      <tbody>
+         <tr>
+            <th colspan="4"><input type="text" name="result" value="" class="final"></th>
+         </tr>
+         <tr>
+            <td><input type="button" value="7" class="seven"></td>
+            <td><input type="button" value="8" class="eight"></td>
+            <td><input type="button" value="9" class="nine"></td>
+            <td><input type="button" value="+" class="plus"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="4" class="four"></td>
+            <td><input type="button" value="5" class="five"></td>
+            <td><input type="button" value="6" class="six"></td>
+            <td><input type="button" value="-" class="minus"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="1" class="one"></td>
+            <td><input type="button" value="2" class="two"></td>
+            <td><input type="button" value="3" class="three"></td>
+            <td><input type="button" value="*" class="multip"></td>
+         </tr>
+         <tr>
+            <td colspan="3"><input type="button" value="0" class="zero"></td>
+            <td><input type="button" value="/" class="half"></td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button"  value="clear" class="clear"></td>
+            <td colspan="2"><input type="button"  value="=" class="result"></td>
+         </tr>
+      </tbody>
+   </table>
+</form>
+
+<script type="text/javascript">
+
+ // var $inp = $('form[name="cal"]');
+ // var $input = $inp.find('input');
+ // var $clsBtn = $('.cls_btn');
+ // var $resultBtn = $('.result_btn');
+ // var $result = $inp.find('input[name="result"]');
+var sum = '';
+
+
+ 
+
+
+$(document).on("click",".seven",function(){
+   var seven = $(this).val(); 
+   var action = "seven.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'seven='+seven,
+      success:function(response){
+         sum += response;
+       $(".final").val(sum); 
+         
+      
+      }
+  });
+
+});
+
+$(document).on("click",".eight",function(){
+   var eight = $(this).val();
+  
+   
+   var action = "eight.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'eight='+eight,
+      success:function(response){
+         sum += response;
+      $(".final").val(sum);
+      }
+  });
+});
+
+$(document).on("click",".nine",function(){
+   var nine = $(this).val();
+  
+   
+   var action = "nine.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'nine='+nine,
+      success:function(response){
+         sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+$(document).on("click",".plus",function(){
+   var plus = $(this).val();
+   if(plus=="+") {
+      plus = encodeURIComponent('+');
+   }
+   
+   var action = "plus.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'plus='+plus,
+      success:function(response){
+          sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+$(document).on("click",".four",function(){
+   var four = $(this).val();
+   
+   var action = "four.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'four='+four,
+      success:function(response){
+         sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+$(document).on("click",".five",function(){
+   var five = $(this).val();
+   
+   var action = "five.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'five='+five,
+      success:function(response){
+         sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+$(document).on("click",".six",function(){
+   var six = $(this).val();
+   
+   var action = "six.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'six='+six,
+      success:function(response){
+          sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+$(document).on("click",".minus",function(){
+   var minus = $(this).val();
+   
+   var action = "minus.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'minus='+minus,
+      success:function(response){
+           sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+$(document).on("click",".one",function(){
+   var one = $(this).val();
+   
+   var action = "one.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'one='+one,
+      success:function(response){
+          sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+$(document).on("click",".two",function(){
+   var two = $(this).val();
+   
+   var action = "two.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'two='+two,
+      success:function(response){
+          sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+$(document).on("click",".three",function(){
+   var three = $(this).val();
+   
+   var action = "three.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'three='+three,
+      success:function(response){
+         sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+ 
+ $(document).on("click",".multip",function(){
+   var multip = $(this).val();
+   
+   var action = "multip.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'multip='+multip,
+      success:function(response){
+         sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+  $(document).on("click",".zero",function(){
+   var zero = $(this).val();
+   
+   var action = "zero.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'zero='+zero,
+      success:function(response){
+           sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+    $(document).on("click",".half",function(){
+   var half = $(this).val();
+   
+   var action = "half.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'half='+half,
+      success:function(response){
+         sum += response;
+         $(".final").val(sum);
+      }
+  });
+  
+
+});
+
+
+    $(document).on("click",".clear",function(){
+   var clear = $(this).val();
+  
+   var action = "clear.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'clear='+clear,
+      success:function(response){
+        var chk = response;
+        if(chk == 'clear'){
+         $(".final").val(0);
+         sum = '';
+        }
+      }
+  });
+  
+
+});
+
+ $(document).on("click",".result",function(){
+   var result = $(this).val();
+  
+   var action = "result.php";
+  $.ajax({
+      type:"post",
+      url:action,
+      data:'result='+result,
+      success:function(response){
+        var chk = response;
+        if(chk == '='){
+         var a = eval(sum);
+
+         $(".final").val(a);
+         
+      }
+   }
+  });
+  
+
+});
+ 
+ 
+
+ 
+
+
+
+</script>
+
+</body>
+</html>
