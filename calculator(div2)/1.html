@@ -56,6 +56,7 @@
 
 var sum = '';
 
+
 $(document).on("click",".num",function(){
   
    var number = $(this).val();
@@ -67,9 +68,9 @@ $(document).on("click",".num",function(){
      success:function(response){
       sum += response;
        $(".final").val(sum); 
-     }
-    
-
+     
+    }
+  
    });
 });
 
@@ -87,7 +88,7 @@ $(document).on("click",".oper",function(){
      url:action,
      data:'oper='+oper,
      success:function(response){
-  
+      
       sum += response;
        $(".final").val(sum); 
      }
@@ -109,7 +110,7 @@ $(document).on("click",".oper",function(){
         var chk = response;
         if(chk == 'clear'){
          $(".final").val(0);
-         sum = '';
+            sum = '';
         }
       }
   });
@@ -119,23 +120,34 @@ $(document).on("click",".oper",function(){
 
  $(document).on("click",".result",function(){
    var result = $(this).val();
+
   
    var action = "result.php";
-  $.ajax({
+     $.ajax({
       type:"post",
       url:action,
       data:'result='+result,
       success:function(response){
-        var chk = response;
-        if(chk == '='){
-         var a = eval(sum);
+          var oper = sum.substring(sum.length-1,sum.length);
 
-         $(".final").val(a);
-         
-      }
-   }
+         if(oper == "+" || oper == "-" || oper == "/" || oper == "*"){
+            
+                  var z = sum + sum.substring(0,sum.length-1);
+                  var q =  eval(z);
+                  $(".final").val(q);
+
+         } else if (eval(sum) == "Infinity") {
+               $(".final").val("0으로 나눌수 없습니다.");
+           
+           }else{
+             var a = eval(sum);
+             $(".final").val(a);
+          }  
+
+     }
+     
+ 
   });
-  
 
 });
  
