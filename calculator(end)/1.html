@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="cal.css">
+</head>
+<body>
+<form action="" name="cal" onsubmit="return false;">
+   <table>
+      <caption>계산기</caption>
+      <tbody>
+         <tr>
+            <th colspan="4"><input type="text" name="result" value="" class="final"></th>
+         </tr>
+         <tr>
+            <td><input type="button" value="7" class="num"></td>
+            <td><input type="button" value="8" class="num"></td>
+            <td><input type="button" value="9" class="num"></td>
+            <td><input type="button" value="+" class="num"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="4" class="num"></td>
+            <td><input type="button" value="5" class="num"></td>
+            <td><input type="button" value="6" class="num"></td>
+            <td><input type="button" value="-" class="num"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="1" class="num"></td>
+            <td><input type="button" value="2" class="num"></td>
+            <td><input type="button" value="3" class="num"></td>
+            <td><input type="button" value="*" class="num"></td>
+         </tr>
+         <tr>
+            <td colspan="3"><input type="button" value="0" class="num"></td>
+            <td><input type="button" value="/" class="num"></td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button"  value="clear" class="num"></td>
+            <td colspan="2"><input type="button"  value="=" class="num"></td>
+         </tr>
+      </tbody>
+   </table>
+</form>
+
+<script type="text/javascript">
+
+
+
+var sum = '';
+
+
+$(document).on("click",".num",function(){
+    
+    var num = $(this).val();
+
+    if(num=="+") {
+      num = encodeURIComponent('+');
+   }
+   
+   var action = "1.php";
+   $.ajax({
+     type:"post",
+     url:action,
+     data:'num='+num,
+     success:function(data){
+        var chk = data;
+       if(chk == 'clear'){
+          $(".final").val(0);
+          sum = '';
+       }else if(chk == '='){
+         var oper = sum.substring(sum.length-1,sum.length);
+
+         if(oper == "+" || oper == "-" || oper == "/" || oper == "*"){
+               var z = sum + sum.substring(0,sum.length-1);
+               var q =  eval(z);
+               $(".final").val(q);
+
+         } else if (eval(sum) == "Infinity") {
+               $(".final").val("0으로 나눌수 없습니다.");
+           
+           }else{
+
+          var z = eval(sum);
+          $(".final").val(z);
+           }
+       }else{
+
+
+        sum += chk;
+        $(".final").val(sum); 
+      }
+       
+     }
+
+   });
+
+});
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+ 
+
+
+
+</script>
+
+</body>
+</html>
