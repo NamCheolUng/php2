@@ -57,23 +57,34 @@ $(document).on("click",".num",function(){
     var num = $(this).val();
 
     if(num=="+") {
-      num = encodeURIComponent('+');
+       num = encodeURIComponent('+');
    }
-   
+ 
    var action = "2.php";
    $.ajax({
      type:"post",
      url:action,
+     dataType:'json',
      data:'num='+num+'&sum='+sum,
      success:function(data){
         var chk = data;
-       if(chk == 'clear'){
+       
+       if(chk['num'] == 'clear'){
           $(".final").val(0);
           sum = '';
-       }else if(chk == '='){
-          $(".final").val();
+       }else if(chk['num'] == '='){
+
+             $(".final").val(chk['ev']); 
+           
+             if(eval(sum) == "Infinity"){
+                 $(".final").val("0으로 나눌수 없습니다."); 
+            }else{
+               var z = eval(sum);
+               $(".final").val(z); 
+            }
+         
        }else{
-        sum += chk;
+        sum += chk['num'];
         $(".final").val(sum); 
       }
        
