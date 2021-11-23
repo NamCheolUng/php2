@@ -1,8 +1,8 @@
 <?php
 
-$num = rawurldecode($_POST['num']);
+$num = $_POST['num'];
 
-$sum = rawurldecode($_POST['sum']);
+$sum = $_POST['sum'];
 
       
 
