@@ -1,10 +1,10 @@
 <?php
 
-$num = $_POST['num'];
+$num = rawurldecode($_POST['num']);
 
-$sum = $_POST['sum'];
+$sum = rawurldecode($_POST['sum']);
 
-
+      
 
 $ar = array('num'=>$num,
             'sum'=>$sum
@@ -13,7 +13,7 @@ $ar = array('num'=>$num,
 
 
  if($num != "=" && $num != "clear"){
-  	echo json_encode($ar);
+   echo json_encode($ar);
     exit;
  } else if($num == 'clear'){
         echo json_encode($ar);
@@ -22,27 +22,38 @@ $ar = array('num'=>$num,
  
   
    $oper = substr($sum,strlen($sum)-1,strlen($sum));
-   
-   if($oper == "+" || $oper == "-" || $oper == "/" || $oper == "*"){
-        $z = $sum.substr($sum,0,strlen($sum)-1);
-        $q = eval("echo $z;"); // undefined
-        // $q = json_encode(eval("echo $z;")); //null
+
+   $oper1 = substr($sum,0,strlen($sum)-1);
 
 
-        $ar['q'] = $q;
+
+
+   switch ($oper) {
+      case '+':  
+           $ar['q'] = (int)$sum + (int)$oper1;
+         break;
+      case '-':
+          $ar['q'] = (int)$sum - (int)$oper1;
+         break;
+      case '*':
+          $ar['q'] = $sum * $oper1;
+         break;
+      case '/':
+          $ar['q'] = (int)$sum / (int)$oper1;
+         break;
+
+       
         
-     
+}     
          
             echo json_encode($ar);
             exit;
 
-     } else{
-             echo json_encode($ar);
-              exit;
-     }
+     
+   }
 
 
- }
+ 
 
 
 
