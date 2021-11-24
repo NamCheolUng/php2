@@ -47,68 +47,61 @@
 
 <script type="text/javascript">
 
-
-
 var sum = '';
 
 
 $(document).on("click",".num",function(){
     
-    var num = $(this).val();
+    var num = $(this).val(); 
 
-    if(num=="+") {
+    if(num=='+') {
        num = encodeURIComponent('+');
-   }
- 
+    }
+
    var action = "2.php";
    $.ajax({
-     type:"post",
+     type:'POST',
      url:action,
      dataType:'json',
      data:'num='+num+'&sum='+sum,
      success:function(data){
-        var chk = data;
+
+           var chk = data;
        
        if(chk['num'] == 'clear'){
-          $(".final").val(0);
-          sum = '';
+
+             $(".final").val(0);
+             sum = '';
+
        }else if(chk['num'] == '='){
 
-             $(".final").val(chk['ev']); 
+               sum =  decodeURIComponent(sum);
+               $(".final").val(chk['q']); 
            
              if(eval(sum) == "Infinity"){
+
                  $(".final").val("0으로 나눌수 없습니다."); 
-            }else{
-               var z = eval(sum);
-               $(".final").val(z); 
-            }
+
+             }else{
+
+                var z = eval(sum);      
+                $(".final").val(z); 
+
+             }
          
        }else{
-        sum += chk['num'];
-        $(".final").val(sum); 
-      }
+         
+            sum += chk['num'];
+           $(".final").val(decodeURIComponent(sum));
+   
+       }
+   
        
      }
 
    });
 
 });
-
-
-
-
-
- 
-
-
-
- 
- 
-
- 
-
-
-
 </script>
 
 </body>
