@@ -1,81 +1,105 @@
-<?php
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="cal.css">
+</head>
+<body>
+<form action="" name="cal" onsubmit="return false;">
+   <table>
+      <caption>계산기</caption>
+      <tbody>
+         <tr>
+            <th colspan="4"><input type="text" name="result" value="" class="final"></th>
+         </tr>
+         <tr>
+            <td><input type="button" value="7" class="num"></td>
+            <td><input type="button" value="8" class="num"></td>
+            <td><input type="button" value="9" class="num"></td>
+            <td><input type="button" value="+" class="num"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="4" class="num"></td>
+            <td><input type="button" value="5" class="num"></td>
+            <td><input type="button" value="6" class="num"></td>
+            <td><input type="button" value="-" class="num"></td>
+         </tr>
+         <tr>
+            <td><input type="button" value="1" class="num"></td>
+            <td><input type="button" value="2" class="num"></td>
+            <td><input type="button" value="3" class="num"></td>
+            <td><input type="button" value="*" class="num"></td>
+         </tr>
+         <tr>
+            <td colspan="3"><input type="button" value="0" class="num"></td>
+            <td><input type="button" value="/" class="num"></td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button"  value="clear" class="num"></td>
+            <td colspan="2"><input type="button"  value="=" class="num"></td>
+         </tr>
+      </tbody>
+   </table>
+</form>
 
-$num = $_POST['num'];
+<script type="text/javascript">
 
-$sum = $_POST['sum'];
+var sum = '';
 
 
- if($num=="+") {
-       $num = rawurlencode('+');
+$(document).on("click",".num",function(){
+    
+    var num = $(this).val(); 
+
+    if(num=='+') {
+       num = encodeURIComponent('+');
     }
 
+   var action = "2.php";
+   $.ajax({
+     type:'POST',
+     url:action,
+     dataType:'json',
+     data:'num='+num+'&sum='+sum,
+     success:function(data){
+           var chk = data;
+            
+       if(chk['num'] == 'clear'){
 
+             $(".final").val(0);
+             sum = '';
 
-$ar = array('num'=>$num,
-            'sum'=>$sum
-           
-            );
+       }else if(chk['num'] == '='){
 
-
- if($num != "=" && $num != "clear"){
-   echo json_encode($ar);
-    exit;
- } else if($num == 'clear'){
-        echo json_encode($ar);
-         exit;
- } else if($num == '='){
-
-
-     
-    $ze = substr($sum,strlen($sum)-1,strlen($sum));
-    
-    $zero = '0으로 나눌수 없습니다.';   
-
-
-           if($ze == 0){
-              $ar['q'] =  $zero;
-            echo json_encode($ar);
-            exit;
-          }
-
-  
-             
-
-
-   $oper = substr($sum,strlen($sum)-1,strlen($sum));
-   $oper1 = substr($sum,0,strlen($sum)-1);
-   
-
-
-   switch ($oper) {
-      case '+': 
-          $ar['q'] = (int)$sum + (int)$oper1;
-          break;
-      case '-':
-          $ar['q'] = (int)$sum - (int)$oper1;
-         break;
-      case '*':
-          $ar['q'] = (int)$sum * (int)$oper1;
-         break;
-      case '/':
-          $ar['q'] = (int)$sum / (int)$oper1;
-         break;
-       
+               sum =  decodeURIComponent(sum);
         
-}     
+
+               $(".final").val(chk['q']);
+
+         var su = sum.substring(sum.length-1,sum.length);
+         if(su != '+' && su != '-'&& su != '*'&& su != '/' && su != 0){
+              var res = eval(sum);
+              $(".final").val(res);  
+         }     
+          
          
-            echo json_encode($ar);
-            exit;
+       }else{
+         
+            sum += chk['num'];
+           $(".final").val(decodeURIComponent(sum));
+   
+       }
+   
+       
+     }
 
+   });
 
+});
+</script>
 
-  
-     
-   }
-
-
- 
-
-
-
-?>
+</body>
+</html>
