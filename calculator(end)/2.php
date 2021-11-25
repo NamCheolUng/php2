@@ -25,16 +25,28 @@ $ar = array('num'=>$num,
          exit;
  } else if($num == '='){
 
- 
-   
+
+     
+    $ze = substr($sum,strlen($sum)-1,strlen($sum));
+    
+    $zero = '0으로 나눌수 없습니다.';   
+
+
+           if($ze == 0){
+              $ar['q'] =  $zero;
+            echo json_encode($ar);
+            exit;
+          }
+
+  
+             
+
 
    $oper = substr($sum,strlen($sum)-1,strlen($sum));
-    
-   
-    
    $oper1 = substr($sum,0,strlen($sum)-1);
    
-  
+
+
    switch ($oper) {
       case '+': 
           $ar['q'] = (int)$sum + (int)$oper1;
@@ -48,7 +60,6 @@ $ar = array('num'=>$num,
       case '/':
           $ar['q'] = (int)$sum / (int)$oper1;
          break;
-
        
         
 }     
@@ -56,6 +67,9 @@ $ar = array('num'=>$num,
             echo json_encode($ar);
             exit;
 
+
+
+  
      
    }
 
