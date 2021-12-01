@@ -1,20 +1,58 @@
 <?php
 $today = $_POST['today'];
 $date = $_POST['date'];
-$bfy = $_POST['bfy'];
-// $nty = $_POST['nty'];
-// $bfm = $_POST['bfm'];
-// $ntm = $_POST['ntm'];
-
-$arr = array('by'=>$bfy);
+$move = $_POST['move'];
 
 
-if($bfy == "by"){
+$arr = array('move'=>$move);
 
-$today =  date("Y-m-d",strtotime("-1 years"));
-     
+
+if ($move=='by') {
+$arr['move'] = 'by';
 echo json_encode($arr);
+exit;
+
+} else if ($move=='ny') {
+$arr['move'] = 'ny';
+echo json_encode($arr);
+exit;
+
+} else if ($move=='bm') {
+$arr['move'] = 'bm';
+echo json_encode($arr);
+exit;
+
+} else if ($move=='nm') {
+$arr['move'] = 'nm';
+echo json_encode($arr);
+exit;
 }
+
+// if($move=='by'){
+// $arr['move'] = date("Y-m-d",strtotime("-1 years"));
+// echo json_encode($arr);
+// exit;
+
+// }else if($move=='ny'){
+// $arr['move'] = date("Y-m-d",strtotime("+1 years"));
+// echo json_encode($arr);
+// exit;
+
+// }else if ($move=='bm') {
+// $arr['move'] = date("Y-m-d",strtotime("-1 months"));
+// echo json_encode($arr);
+// exit;
+
+// } else if ($move=='nm') {
+// $arr['move'] = date("Y-m-d",strtotime("+1 months"));
+// echo json_encode($arr);
+// exit;
+// }
+
+
+
+
+
 
 
 
