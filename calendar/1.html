@@ -22,81 +22,42 @@
     var today = new Date();
     var date = new Date();
    
-
-     function beforey() 
-    { 
-     beforeyy.innerHTML="by";
-    var bfy = $(".font1").text();
-    var action = "1.php";
-    $.ajax({
-     type:'post',
-     url:action,
-     dataType:'json',
-     data:'today='+today+'&date='+date+'&bfy='+bfy,
-     success:function(response){
+   function calendarr(move) {
+        var action = "1.php";
+      $.ajax({
+        type:'POST',
+        url:action,
+        dataType:'json',
+        data:'today='+today+'&date='+date+'&move='+move,
+        success:function(response){
          var chk = response;
-         alert(chk['by']);
-         return false;
-     }
-
-    });
- 
+         // today1 = new Date(today.getFullYear()-1,today.getMonth(),today.getDate()+1).toISOString().substring(0,10); //2020-11-30
         
-        build(); 
-    }
-    
-    function nexty()  
-    {
-    var nty = $("#nextyy");
-    var action = "1.php";
-    $.ajax({
-     type:'post',
-     url:action,
-     data:'today='+today+'&date='+date+'&nty='+nty,
-     success:function(response){
-     
-         
-     }
+         if (chk['move'] == 'by') { 
 
-    });
-       today = new Date(today.getFullYear()+1,today.getMonth(),today.getDate());
-        build();
-    }
- 
-    function beforem() 
-    { 
-    var bfm = $("#beforemm");
-    var action = "1.php";
-    $.ajax({
-     type:'post',
-     url:action,
-     data:'today='+today+'&date='+date+'&bfm='+bfm,
-     success:function(response){
+            today = new Date(today.getFullYear()-1,today.getMonth(),today.getDate());
+            alert(today);
+            return false;
+            build();
+            
+         }else if (chk['move'] == 'ny') {
+            today = new Date(today.getFullYear()+1,today.getMonth(),today.getDate());
+            build();
+
+         }else if (chk['move'] == 'bm') {
+            today = new Date(today.getFullYear(),today.getMonth()-1,today.getDate());
+            build();
+            
+         }else if (chk['move'] == 'nm') {
+            today = new Date(today.getFullYear(),today.getMonth()+1,today.getDate());
+            build();
+               
+          }   
+     }            
+   }); 
        
-     }
-     });
-
-        today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-        build();
-    }
-    
-    function nextm() 
-    {
-    var ntm = $("#nextmm");
-    var action = "1.php";
-    $.ajax({
-     type:'post',
-     url:action,
-     data:'today='+today+'&date='+date+'&ntm='+ntm,
-     success:function(response){
-        
-     }
-     });
-
-        today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-        build();
-    }
-    
+}
+      
    function build()
     {
         var nMonth = new Date(today.getFullYear(), today.getMonth(), 1); // Mon Nov 01 
@@ -106,11 +67,11 @@
         year.innerHTML = today.getFullYear()+"년";
         month.innerHTML = (today.getMonth() + 1) + "월";
 
-         beforeyy.innerHTML="<";
-        nextyy.innerHTML=">";
+        beforey.innerHTML="<";
+        nexty.innerHTML=">";
 
-        beforemm.innerHTML="<";
-        nextmm.innerHTML=">";
+        beforem.innerHTML="<";
+        nextm.innerHTML=">";
        
        
         while (tbcal.rows.length > 3) // 정의한 테이블 행갯수(3) 
@@ -156,14 +117,14 @@
 <body onload="build()">
     <table id="calendar">
         <tr>
-            <td><font size=1%; color="##3a09e8" class="font1"><label onclick="beforey()" id="beforeyy"></label></font></td>
+            <td><font size=1%; color="##3a09e8"><label onclick="calendarr('by')" id="beforey"></label></font></td>
             <td colspan="5" align="center" id="year"></td>
-            <td><font size=1%; color="##3a09e8"><label onclick="nexty()" id="nextyy"></label></font></td>
+            <td><font size=1%; color="##3a09e8"><label onclick="calendarr('ny')" id="nexty"></label></font></td>
         </tr>
         <tr>
-            <td><font size=1%; color="#B3B6B3"><label onclick="beforem()" id="beforemm"></label></font></td>
+            <td><font size=1%; color="#B3B6B3"><label onclick="calendarr('bm')" id="beforem"></label></font></td>
             <td colspan="5" align="center" id="month"></td>
-            <td><font size=1%; color="#B3B6B3"><label onclick="nextm()" id="nextmm"></label></font></td>
+            <td><font size=1%; color="#B3B6B3"><label onclick="calendarr('nm')" id="nextm"></label></font></td>
         </tr>
         <tr>
             <td><font color="#FF9090">일</font></td>
