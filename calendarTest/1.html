@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>testCalendar</title>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+
+<style>
+    table
+    {
+        border:1px solid #BDBDBD;
+        text-align:center;
+        width:50%;
+        margin-top: 100px;
+        margin-left:auto; 
+        margin-right:auto;
+
+    }
+</style>
+ 
+
+</head>
+ <script type="text/javascript">
+   
+      var today='';
+      var todayY='';
+      var todayM='';
+      var date='';
+      var dateY='';
+      var dateM='';
+      var dateDate='';
+      var nMonth='';
+      var lastDate='';
+   
+   
+   function build(move)  {
+      var action = "1.php";
+      
+      $.ajax({
+        type:'POST',
+        url:action,
+        dataType:'json',
+        data:'move='+move+'&todayY='+todayY,
+        success:function(response){
+         var chk = response;
+
+
+           if (chk['move'] == 'by') { 
+          
+            today = chk['today']; 
+            todayY = chk['todayY'];
+            todayM = chk['todayM'];
+            dateY = chk['dateY'];
+            dateM = chk['dateM'];
+            dateDate = chk['dateDate'];
+            nMonth=  chk['nMonth'];             
+            lastDate=  chk['lastDate'];    
+
+            
+         }else if (chk['move'] == 'ny') { 
+        
+            today = chk['today']; 
+            todayY = chk['todayY'];
+            todayM = chk['todayM'];
+            dateY = chk['dateY'];
+            dateM = chk['dateM'];
+            dateDate = chk['dateDate'];
+            nMonth=  chk['nMonth'];             
+            lastDate=  chk['lastDate'];    
+               
+
+
+         }else if (chk['move'] == 'bm') { 
+        
+            today += chk['today'];
+            todayY = chk['todayY'];
+            todayM = chk['todayM'];
+            dateY = chk['dateY'];
+            dateM = chk['dateM'];
+            dateDate = chk['dateDate'];
+            nMonth=  chk['nMonth'];            
+            lastDate=  chk['lastDate'];    
+                
+
+         }else if (chk['move'] == 'nm') {
+
+            today = chk['today'];
+            todayY = chk['todayY'];
+            todayM = chk['todayM'];
+            dateY = chk['dateY'];
+            dateM = chk['dateM'];
+            dateDate = chk['dateDate'];
+            nMonth =  chk['nMonth'];              
+            lastDate=  chk['lastDate'];            
+
+               
+          } else{
+            todayY = chk['todayY'];
+            todayM = chk['todayM'];
+            dateY = chk['dateY'];
+            dateM = chk['dateM'];
+            dateDate = chk['dateDate'];
+            nMonth =  chk['nMonth'];              
+            lastDate=  chk['lastDate'];         
+          }
+     }       
+
+   }); 
+           
+        var tbcal = document.getElementById("calendar");
+        var year = document.getElementById("year");
+         year.innerHTML = todayY +"년";
+         month.innerHTML = todayM + "월";
+
+        beforey.innerHTML="<";
+        nexty.innerHTML=">";
+
+        beforem.innerHTML="<";
+        nextm.innerHTML=">";
+       
+       
+        while (tbcal.rows.length > 3) // 정의한 테이블 행갯수(3) 
+        {
+            tbcal.deleteRow(tbcal.rows.length - 1);
+        }
+
+        var row = null;
+        row = tbcal.insertRow();
+        var cnt = 0;
+ 
+        
+        for (i = 0; i < nMonth; i++) //현재달의 첫째 날 요일가져와서 시작칸
+        {
+            cell = row.insertCell();
+            cnt = cnt + 1;
+        }
+      
+        for (i = 1; i <= lastDate; i++) // 1일부터 마지막 일까지
+        { 
+
+            cell = row.insertCell();
+            cell.innerHTML = i;
+            cnt = cnt + 1;
+            if (cnt % 7 == 1) {
+                cell.innerHTML = "<font color=#FF9090>" + i
+            }
+            if (cnt % 7 == 0) {
+                cell.innerHTML = "<font color=#7ED5E4>" + i
+                row = calendar.insertRow();
+            }
+            if(todayY==dateY&&todayM==dateM&&i==dateDate) 
+            {
+                cell.bgColor = "#BCF1B1";
+            }
+        }
+ 
+    }
+
+  
+</script>
+<body onload="build()">
+    <table id="calendar">
+        <tr>
+            <td><font size=1%; color="##3a09e8"><label onclick="build('by')" id="beforey"></label></font></td>
+            <td colspan="5" align="center" id="year"></td>
+            <td><font size=1%; color="##3a09e8"><label onclick="build('ny')" id="nexty"></label></font></td>
+        </tr>
+        <tr>
+            <td><font size=1%; color="#B3B6B3"><label onclick="build('bm')" id="beforem"></label></font></td>
+            <td colspan="5" align="center" id="month"></td>
+            <td><font size=1%; color="#B3B6B3"><label onclick="build('nm')" id="nextm"></label></font></td>
+        </tr>
+        <tr>
+            <td><font color="#FF9090">일</font></td>
+            <td>월</td>
+            <td>화</td>
+            <td>수</td>
+            <td>목</td>
+            <td>금</td>
+            <td><font color=#7ED5E4>토</font></td>
+        </tr>
+    </table>
+    
+</body>
+ 
+</html>
