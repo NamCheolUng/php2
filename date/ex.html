@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+
+	<script type="text/javascript">
+		
+     var today = new Date(); //오늘 날짜
+
+ 		console.log("new Date() : " +  today);  //오늘 날짜 Fri Nov 26 2021 13:42:52 GMT+0900 (한국 표준시)
+  		console.log("today.getFullYear() : " + today.getFullYear()); // 현재 날짜의 년 2021
+  	    console.log("today.getMonth() : " + today.getMonth()); 
+        console.log("today.getDate() : " + today.getDate());  
+        console.log("today.getDay() : " + today.getDay()); 
+ //달과 요일은 0부터 시작이라 +1해줘야된다.  결과값이 출력되고 +1 해주면됨
+
+
+
+
+        var nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
+        var lastDate = new Date(today.getFullYear(), today.getMonth()+1,0); //현재 달의 마지막 날 //+1 안해줄시 10월 31일 찍힘. //0 안해줄시 12월 1일 수 찍힘.
+
+
+        console.log(nMonth); //Mon Nov 01 2021 00:00:00 GMT+0900 (한국 표준시)
+        console.log(lastDate); //Tue Nov 30 2021 00:00:00 GMT+0900 (한국 표준시)
+	</script>
+
+</body>
+</html>
+
+
