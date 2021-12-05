@@ -45,6 +45,7 @@
         data:'move='+move,
         success:function(response){
          var chk = response;
+       
             today = chk['today'];
             todayY = chk['todayY'];
             todayM = chk['todayM'];
@@ -52,9 +53,10 @@
             dateM = chk['dateM'];
             dateDate = chk['dateDate'];
             nMonth = chk['nMonth'];
-            nMonthW = chk['nMonthDay'];
+            nMonthW = chk['nMonthMW'];  
             lastDate = chk['lastDate'];
             lastDateN = chk['lastDateN'];
+     
 
           
 
