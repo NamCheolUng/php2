@@ -24,7 +24,8 @@
    
       var today='';
       var todayY='';
-      var todayM='';
+      var todaym='';
+      var todayd='';
       var date='';
       var dateY='';
       var dateM='';
@@ -42,13 +43,14 @@
         type:'POST',
         url:action,
         dataType:'json',
-        data:'move='+move,
+        data:'move='+move+'&todayY='+todayY+'&todaym='+todaym+'&dateY='+dateY+'&dateM='+dateM+'&dateDate='+dateDate+'&todayd='+todayd,
         success:function(response){
          var chk = response;
-       
+         
             today = chk['today'];
             todayY = chk['todayY'];
-            todayM = chk['todayM'];
+            todaym = chk['todayM'];
+            todayd = chk['todayD'];
             dateY = chk['dateY'];
             dateM = chk['dateM'];
             dateDate = chk['dateDate'];
@@ -56,14 +58,14 @@
             nMonthW = chk['nMonthMW'];  
             lastDate = chk['lastDate'];
             lastDateN = chk['lastDateN'];
-     
+          
 
           
 
        var tbcal = document.getElementById("calendar");
 
         year.innerHTML = todayY +"년";
-        month.innerHTML = todayM + "월";
+        month.innerHTML = todaym + "월";
 
         beforey.innerHTML="<";
         nexty.innerHTML=">";
@@ -100,7 +102,7 @@
                 cell.innerHTML = "<font color=#7ED5E4>" + i
                 row = calendar.insertRow();
             }
-            if(todayY==dateY&&todayM==dateM&&i==dateDate) {
+            if(todayY==dateY&&todaym==dateM&&i==dateDate) {
                 cell.bgColor = "#BCF1B1";
             }
         }
