@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+
+	<title></title>
+</head>
+<body>
+<h1>대구날씨</h1>
+
+
+
+현재 온도 : <span id=tmp></span><br>           
+현재 습도 : <span id=hum></span><br>           
+날씨 : <span id=wea></span><br>           
+상세날씨설명 : <span id=des></span><br>           
+바람 : <span id=wind></span><br>           
+나라 : <span id=cou></span><br>           
+구름 : <span id=cloud></span><br>  
+<div id="icon"><img id="wicon" src="" alt="Weather icon"></div> 
+      
+
+
+<script type="text/javascript">
+	var city = 'daegu';
+	var apikey = 'd3e843c96aa527accccbc6b9d4c4ac25';
+	var url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+ apikey;
+        $.ajax({
+            url: url,
+            dataType: "json",
+            type: "GET",
+            async: "false",
+            success: function(resp) {
+                 var tmp = resp['main']['temp']- 273.15;
+                 var tmp = tmp.toFixed(2);
+                 var hum =  resp.main.humidity;    
+                 var wea  =  resp.weather[0].main;
+                 var des   =   resp.weather[0].description;
+                 var icon   =    resp.weather[0].icon;
+                 var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+                 $('#wicon').attr('src', iconurl);
+                 var wind    =   resp.wind.speed;
+                 var cou  =  resp.sys.country=='KR'?'대한민국':'';
+                 var cloud =   (resp.clouds.all) +"%";
+
+                document.getElementById('tmp').innerHTML= tmp;
+                document.getElementById('hum').innerHTML= hum;
+                document.getElementById('wea').innerHTML= wea;
+                document.getElementById('des').innerHTML= des;
+                document.getElementById('wind').innerHTML= wind;
+                document.getElementById('cou').innerHTML= cou;
+                document.getElementById('cloud').innerHTML= cloud;
+          
+                console.log(resp);
+                console.log("현재온도 : "+ (resp.main.temp- 273.15) );
+                console.log("현재습도 : "+ resp.main.humidity);
+                console.log("날씨 : "+ resp.weather[0].main );
+                console.log("상세날씨설명 : "+ resp.weather[0].description );
+                console.log("바람   : "+ resp.wind.speed );
+                console.log("나라   : "+ resp.sys.country );
+                console.log("구름  : "+ (resp.clouds.all) +"%" );
+                console.log("날씨 이미지 : "+ resp.weather[0].icon );                 
+            }
+        });
+    
+
+</script>
+</body>
+</html>
