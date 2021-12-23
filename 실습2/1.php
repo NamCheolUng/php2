@@ -107,22 +107,29 @@
   var sum3 = "";
  
 		function category(e){
-			var cateA = ['인건비(직접비)'];
-			var cateB = ['인건비(간접비)'];
-		   var cateC = ['세목선택'];
+			var cateA = ['인건비(직접비)','연구활동비(직접비)'];
+			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
+		     var cateC = ['세목선택'];
 			var target = document.getElementById("cateM");
          
 			if (e.value == 1) {
-              $("select[name='cM']").attr('disabled',false);    
-              var result = cateA;
+              $("select[name='cM']").attr('disabled',false);  
+              var result = cateA;  
+              var result0 = cateA[0];
+              var result0 = cateA[1];
+
               a += '직접비';
-              arrA.push(result);
+              arrA.push(result0);
+
+
          }else if (e.value == 2) {
-         	 $("select[name='cM']").attr('disabled',false);    
-              var result = cateB;
+         	 $("select[name='cM']").attr('disabled',false);  
+         	    var result = cateB;  
+              var result0 = cateB[0];
+              var result0 = cateB[1];
                 a1 += '간접비';
-                arrA1.push(result);
-              
+                 arrA1.push(result0);
+                 
 			}else{   
 				 $("select[name='cM']").attr('disabled',true); 
 				  var result = cateC;
@@ -133,28 +140,33 @@
 			for (var i in result){
 				var opt = document.createElement("option");
 				opt.innerHTML = result[i];
-		      target.appendChild(opt);
+		          target.appendChild(opt);
 			}
 
 
 		}
 
 	   function category2(e){
-			var cateA = ['인건비(직접비)'];
-			var cateB = ['인건비(간접비)'];
-		   var cateC = ['세목선택'];
+			var cateA = ['인건비(직접비)','연구활동비(직접비)'];
+			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
+		     var cateC = ['세목선택'];
 			var target = document.getElementById("cateM2");
          
 			if (e.value == 1) {
               $("select[name='cM2']").attr('disabled',false);    
               var result = cateA;
+              var result0 = cateA[0];
+              var result0 = cateA[1];
+
                b += '직접비';
-              arrB.push(result);
+              arrB.push(result0);
          }else if (e.value == 2) {
          	 $("select[name='cM2']").attr('disabled',false);    
               var result = cateB;
+              var result0 = cateB[0];
+              var result0 = cateB[1];
                b1 += '간접비';
-               arrB1.push(result);
+               arrB1.push(result0);
 			}else{   
 				 $("select[name='cM2']").attr('disabled',true); 
 				  var result = cateC;
@@ -172,21 +184,25 @@
 		}
 
 		function category3(e){
-			var cateA = ['인건비(직접비)'];
-			var cateB = ['인건비(간접비)'];
+			var cateA = ['인건비(직접비)','연구활동비(직접비)'];
+			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
 		     var cateC = ['세목선택'];
 			var target = document.getElementById("cateM3");
          
 			if (e.value == 1) {
               $("select[name='cM3']").attr('disabled',false);    
               var result = cateA;
+              var result0 = cateA[0];
+              var result0 = cateA[1];
                c += '직접비';
-              arrC.push(result);
+              arrC.push(result0);
          }else if (e.value == 2) {
          	 $("select[name='cM3']").attr('disabled',false);    
               var result = cateB;
+              var result0 = cateB[0];
+              var result0 = cateB[1];
                 c += '간접비';
-              arrC1.push(result);
+              arrC1.push(result0);
 			}else{   
 				 $("select[name='cM3']").attr('disabled',true); 
 				  var result = cateC;
@@ -258,7 +274,7 @@
                dataType:'json',
                data:'arrA='+arrA+'&a='+a+'&arrA1='+arrA1+'&a1='+a1+'&arrB='+arrB+'&b='+b+'&arrB1='+arrB1+'&b1='+b1+'&arrC='+arrC+'&c='+c+'&arrC1='+arrC1+'&c1='+c1+'&sM='+sM+'&sM1='+sM1+'&sM2='+sM2+'&sMS='+sMS+'&sF='+sF+'&sF1='+sF1+'&sF2='+sF2+'&sFS='+sFS+'&sum='+sum+'&sum1='+sum1+'&sum2='+sum2+'&sum3='+sum3,
                 success:function(data){
-              
+
                  $('#del').remove();
                  $("#div").before(
                       '<table border="1" style="text-align:center; margin-top: 50px; margin-right: auto; margin-left: auto;">' +
