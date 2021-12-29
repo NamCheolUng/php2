@@ -72,41 +72,46 @@
 </table>
 <div id="div" style="text-align: center; margin-top: 50px;"> 
 <button type="button" class="save">저장</button>
+<button type="button" onclick="location.href='1.php'">되돌아가자</button>
 <dvi>
 
 
 <script type="text/javascript">
   var arrA = [];
   var arrA1= [];
-  var a = "";
-  var a1 = "";
+  var a = [];
+  var a1 = [];
 
   var arrB = [];
   var arrB1= [];
-  var b = "";
-  var b1 = "";
+  var b = [];
+  var b1 = [];
 
   var arrC = [];
   var arrC1= [];
-  var c = "";
-  var c1 = "";
+  var c = [];
+  var c1 = [];
 
-  var sM = "";
-  var sM1 = "";
-  var sM2 = "";
-  var sMS = "";
+  var sM = [];
+  var sM1 = [];
+  var sM2 = [];
+  var sMS = [];
 
-  var sF = "";
-  var sF1 = "";
-  var sF2 = "";
-  var sFS = "";
+  var sF = [];
+  var sF1 = [];
+  var sF2 = [];
+  var sFS =[];
 
-  var sum = "";
-  var sum1 = "";
-  var sum2 = "";
-  var sum3 = "";
+  var sum = [];
+  var sum1 = [];
+  var sum2 = [];
+  var sum3 = [];
  
 		function category(e){
+               a.pop();
+               arrA.pop();
+               a1.pop();
+               arrA1.pop();
 			var cateA = ['인건비(직접비)','연구활동비(직접비)'];
 			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
 		     var cateC = ['세목선택'];
@@ -115,11 +120,19 @@
 			if (e.value == 1) {
               $("select[name='cM']").attr('disabled',false);  
               var result = cateA;  
-              var result0 = cateA[0];
-              var result0 = cateA[1];
+              var result0 = cateA.join("");
+              // var result1 = cateA[1];
+              
 
-              a += '직접비';
-              arrA.push(result0);
+
+              if(result0 == '인건비(직접비)연구활동비(직접비)'){
+              	 
+              	  arrA.push(result0);
+              }
+
+              
+              a.push('직접비');
+              // arrA.push(result0);
 
 
          }else if (e.value == 2) {
@@ -127,7 +140,7 @@
          	    var result = cateB;  
               var result0 = cateB[0];
               var result0 = cateB[1];
-                a1 += '간접비';
+                a1.push('간접비');
                  arrA1.push(result0);
                  
 			}else{   
@@ -147,6 +160,10 @@
 		}
 
 	   function category2(e){
+	   	 b.pop();
+	   	 arrB.pop();
+	   	 b1.pop();
+	   	 arrB1.pop();
 			var cateA = ['인건비(직접비)','연구활동비(직접비)'];
 			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
 		     var cateC = ['세목선택'];
@@ -158,14 +175,14 @@
               var result0 = cateA[0];
               var result0 = cateA[1];
 
-               b += '직접비';
+               b.push('직접비');
               arrB.push(result0);
          }else if (e.value == 2) {
          	 $("select[name='cM2']").attr('disabled',false);    
               var result = cateB;
               var result0 = cateB[0];
               var result0 = cateB[1];
-               b1 += '간접비';
+               b1.push('간접비');
                arrB1.push(result0);
 			}else{   
 				 $("select[name='cM2']").attr('disabled',true); 
@@ -184,6 +201,10 @@
 		}
 
 		function category3(e){
+			c.pop();
+			arrC.pop();
+			c1.pop();
+			arrC1.pop();
 			var cateA = ['인건비(직접비)','연구활동비(직접비)'];
 			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
 		     var cateC = ['세목선택'];
@@ -194,14 +215,14 @@
               var result = cateA;
               var result0 = cateA[0];
               var result0 = cateA[1];
-               c += '직접비';
+               c.push('직접비');
               arrC.push(result0);
          }else if (e.value == 2) {
          	 $("select[name='cM3']").attr('disabled',false);    
               var result = cateB;
               var result0 = cateB[0];
               var result0 = cateB[1];
-                c += '간접비';
+                c1.push('간접비');
               arrC1.push(result0);
 			}else{   
 				 $("select[name='cM3']").attr('disabled',true); 
@@ -221,44 +242,77 @@
            
       function check(){
            	var a = $('#sm').val();
-           	sM = a;     
-           	var b = $('#self').val(); 
-           	sF = b; 	    
-           	var c = parseInt(a) + parseInt(b);
-               sum = c;
+           	sM = [];
+           	sM.push(a);     
+           	var b = $('#self').val();
+           	sF = []; 
+           	sF.push(b);
+
+           	if(a==""){
+           		$('#sm').val(0);
+           	} 	
+           	if(b==""){
+           		$('#self').val(0);
+           	}     
+           	var c = Number(a) + Number(b);
+           	sum = [];
+               sum.push(c);
            	$('#sum').val(c);
           
 
            	var a2 = $('#sm2').val();
-           	  sM1 = a2;   	
+           	sM1 = [];
+           	sM1.push(a2);   	
            	var b2 = $('#self2').val();
-           	 sF1 = b2; 
-           	var c2 = parseInt(a2) + parseInt(b2);
-           	sum1 = c2;
+           	 sF1  = []; 
+           	 sF1.push(b2); 
+
+              if(a2==""){
+           		$('#sm2').val(0);
+           	} 	
+           	if(b2==""){
+           		$('#self2').val(0);
+           	}  
+           	var c2 = Number(a2) + Number(b2);
+           	sum1 = [];
+           	sum1.push(c2);
            	$('#sum2').val(c2);
            	
 
            	var a3 = $('#sm3').val();
-           	 sM2 = a3;    	
+           	sM2 = [];
+           	 sM2.push(a3);    	
            	var b3 = $('#self3').val();
-           	 sF2 = b3;	
-           	var c3 = parseInt(a3) + parseInt(b3);
-           	sum2 = c3;
+           	sF2 = [];
+           	 sF2.push(b3);	
+
+           	if(a3==""){
+           		$('#sm3').val(0);
+           	} 	
+           	if(b3==""){
+           		$('#self3').val(0);
+           	}  
+           	var c3 = Number(a3) + Number(b3);
+           	sum2 = []
+           	sum2.push(c3);
            	$('#sum3').val(c3);
            	
             
-            var c4 = parseInt(a) + parseInt(a2) + parseInt(a3);
+            var c4 = Number(a) + Number(a2) + Number(a3);
             $('#sm4').val(c4);
-            sMS = c4;
+            sMS = [];
+            sMS.push(c4);
                	
 
-            var c5 = parseInt(b) + parseInt(b2) + parseInt(b3);
+            var c5 = Number(b) + Number(b2) + Number(b3);
             $('#self4').val(c5);
-            sFS = c5;
+            sFS = [];
+            sFS.push(c5);
 
             var c6 = c + c2 + c3;
-            sum3 = c6;
             $('#sum4').val(c6);
+            sum3 = []
+              sum3.push(c6);
           
          }
 
