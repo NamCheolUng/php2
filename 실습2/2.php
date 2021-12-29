@@ -1,5 +1,11 @@
 <?php
  $arrA = $_POST['arrA'];
+
+// $arrA = explode(',',$arrA);
+// $arrA = implode(',',$arrA);
+
+
+
  $arrA1 = $_POST['arrA1'];
  $a = $_POST['a'];
  $a1 = $_POST['a1'];
@@ -29,8 +35,8 @@ $sum1 = $_POST['sum1'];
 $sum2 = $_POST['sum2'];
 $sum3 = $_POST['sum3'];
 
-$arry = array(
-    'A' => $arrA,
+
+$arr = array(
     'a' => $a,
     'AA' => $arrA1,
     'aa' => $a1,
@@ -56,7 +62,34 @@ $arry = array(
      'sum3' => $sum3
 );
 
-echo json_encode($arry);
+$in = '인건비(직접비)';
+$se = '연구활동비(직접비)';
 
+if($arrA){
+  $arr['A'] = $se;
+   echo json_encode($arr);
+   exit;
+}
+
+
+
+// for ($i=0; $i < count($arrA); $i++) {
+
+//     $arrA[$i] == $in ? $arr['A'] = $in:'';
+//     $arrA[$i] == $se ? $arr['A'] = $se:'';
+//     echo json_encode($arr);
+//     exit;
+//  if($arrA[$i] == $in){
+//     $arr['A'] = $in:'';;
+//     echo json_encode($arr);
+//     exit;
+// }else if($arrA[$i] == $se){
+//     $arr['A'] = $se;
+//     echo json_encode($arr);
+//     exit;
+// } 
+// }
+echo json_encode($arr);
+exit;
 
 ?>
