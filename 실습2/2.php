@@ -1,24 +1,20 @@
 <?php
- $arrA = $_POST['arrA'];
-
+$arrA = $_POST['arrA'];
 // $arrA = explode(',',$arrA);
 // $arrA = implode(',',$arrA);
+$arrA1 = $_POST['arrA1'];
+$a = $_POST['a'];
+$a1 = $_POST['a1'];
 
+$arrB = $_POST['arrB'];
+$arrB1 = $_POST['arrB1'];
+$b = $_POST['b'];
+$b1 = $_POST['b1'];
 
-
- $arrA1 = $_POST['arrA1'];
- $a = $_POST['a'];
- $a1 = $_POST['a1'];
-
- $arrB = $_POST['arrB'];
- $arrB1 = $_POST['arrB1'];
- $b = $_POST['b'];
- $b1 = $_POST['b1'];
-
- $arrC = $_POST['arrC'];
- $arrC1 = $_POST['arrC1'];
- $c = $_POST['c'];
- $c1 = $_POST['c1'];
+$arrC = $_POST['arrC'];
+$arrC1 = $_POST['arrC1'];
+$c = $_POST['c'];
+$c1 = $_POST['c1'];
 
 $sM = $_POST['sM'];
 $sM1 = $_POST['sM1'];
@@ -37,6 +33,7 @@ $sum3 = $_POST['sum3'];
 
 
 $arr = array(
+    'A' => $arrA,
     'a' => $a,
     'AA' => $arrA1,
     'aa' => $a1,
@@ -62,14 +59,14 @@ $arr = array(
      'sum3' => $sum3
 );
 
-$in = '인건비(직접비)';
-$se = '연구활동비(직접비)';
+// $in = '인건비(직접비)';
+// $se = '연구활동비(직접비)';
 
-if($arrA){
-  $arr['A'] = $se;
-   echo json_encode($arr);
-   exit;
-}
+// if($arrA){
+//   $arr['A'] = $in;
+//    echo json_encode($arr);
+//    exit;
+// }
 
 
 
