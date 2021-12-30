@@ -27,29 +27,29 @@
 		   <select name="cM" id="cateM" class="p" disabled>	
 		    	<option value="">세목선택</option>
 		</td>
-    <td><input type="text" id="sm" onkeyup="check()"></td>
-		<td><input type="text" id="self" onkeyup="check()"></td>
-		<td><input type="text" id="sum"></td>
+    <td><input type="number" id="sm" onkeyup="check()"></td>
+		<td><input type="number" id="self" onkeyup="check()"></td>
+		<td><input type="number" id="sum"></td>
 	</tr>
 	<tr>
 		<td>
-			<select onchange="category2(this)">
-          <option value="">비목선택</option>
-          <option value="1">직접비</option>
-          <option value="2">간접비</option>
+		  <select onchange="category2(this)">
+           <option value="">비목선택</option>
+           <option value="1">직접비</option>
+           <option value="2">간접비</option>
       </select>
     </td>
 		<td>
 		   <select name="cM2" id="cateM2" class="p" disabled>	
-		    	<option value="">세목선택</option>
+		   <option value="">세목선택</option>
 		</td>
-    <td><input type="text" id="sm2" onkeyup="check()"></td>
-		<td><input type="text" id="self2" onkeyup="check()"></td>
-		<td><input type="text" id="sum2"></td>
+    <td><input type="number" id="sm2" onkeyup="check()"></td>
+		<td><input type="number" id="self2" onkeyup="check()"></td>
+		<td><input type="number" id="sum2"></td>
 	</tr>
 	<tr>
 		<td>
-			<select onchange="category3(this)">
+		 <select onchange="category3(this)">
            <option value="">비목선택</option>
            <option value="1">직접비</option>
            <option value="2">간접비</option>
@@ -59,15 +59,15 @@
 		   <select name="cM3" id="cateM3" class="p" disabled>	
 		    	 <option value="">세목선택</option>
 		</td>
-    <td><input type="text" id="sm3" onkeyup="check()"></td>
-		<td><input type="text" id="self3" onkeyup="check()"></td>
-		<td><input type="text" id="sum3"></td>
+    <td><input type="number" id="sm3" onkeyup="check()"></td>
+		<td><input type="number" id="self3" onkeyup="check()"></td>
+		<td><input type="number" id="sum3"></td>
 	</tr>
 	<tr>
 		<td colspan="2">합계</td>
-		<td><input type="text" id="sm4"></td>
-		<td><input type="text" id="self4"></td>
-		<td><input type="text" id="sum4"></td>
+		<td><input type="number" id="sm4"></td>
+		<td><input type="number" id="self4"></td>
+		<td><input type="number" id="sum4"></td>
 	</tr>
 </table>
   <div id="div" style="text-align: center; margin-top: 50px;"> 
@@ -107,22 +107,24 @@
   var sum2 = [];
   var sum3 = [];
  
-		function category(e){
+  function category(e){
       a.pop();
       a1.pop();
-     	var cateA = ['인건비(직접비)','연구활동비(직접비)'];
-			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
-		  var cateC = ['세목선택'];
-			var target = document.getElementById("cateM");
+      // arrA.pop();
+      // arrA1.pop();
+     	var cateA = ['세목선택','인건비(직접비)','연구활동비(직접비)'];
+		var cateB = ['세목선택','인건비(간접비)','연구활동비(간접비)'];
+		var cateC = ['세목선택'];
+	    var target = document.getElementById("cateM");
          
 			if (e.value == 1) {
               $("select[name='cM']").attr('disabled',false);  
               var result = cateA;  
               a.push('직접비');
-         $(".p").click(function(){
- 	                arrA.pop();
-         	      // if($("select[name='cM'] option:selected").val() == '인건비(직접비)'){
-               if($(this).val() == '인건비(직접비)'){
+         $(".p").change(function(){
+
+ 	               arrA.pop();
+         	      if($("select[name='cM'] option:selected").val() == '인건비(직접비)'){
          	        arrA.push('인건비(직접비)');
          	      }
          	      else if($("select[name='cM'] option:selected").val() == '연구활동비(직접비)'){
@@ -132,9 +134,9 @@
          }else if (e.value == 2) {
          	    $("select[name='cM']").attr('disabled',false);  
          	    var result = cateB;  
-              a1.push('간접비');
+                a1.push('간접비');
                
-          $(".p").click(function(){
+          $(".p").change(function(){
  	               arrA1.pop();
          	      if($("select[name='cM'] option:selected").val() == '인건비(간접비)'){
          	        arrA1.push('인건비(간접비)');
@@ -163,16 +165,16 @@
 	  function category2(e){
 	   	 b.pop();
 	   	 b1.pop();
-	 		var cateA = ['인건비(직접비)','연구활동비(직접비)'];
-			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
-		  var cateC = ['세목선택'];
+	 		var cateA = ['세목선택','인건비(직접비)','연구활동비(직접비)'];
+			var cateB = ['세목선택','인건비(간접비)','연구활동비(간접비)'];
+		    var cateC = ['세목선택'];
 			var target = document.getElementById("cateM2");
          
 			if (e.value == 1) {
               $("select[name='cM2']").attr('disabled',false);    
               var result = cateA;
               b.push('직접비');
-         $(".p").click(function(){
+         $(".p").change(function(){
  	               arrB.pop();
          	      if($("select[name='cM2'] option:selected").val() == '인건비(직접비)'){
          	        arrB.push('인건비(직접비)');
@@ -185,7 +187,7 @@
          	    $("select[name='cM2']").attr('disabled',false);    
               var result = cateB;
               b1.push('간접비');
-         $(".p").click(function(){
+         $(".p").change(function(){
  	               arrB1.pop();
          	      if($("select[name='cM2'] option:selected").val() == '인건비(간접비)'){
          	        arrB1.push('인건비(간접비)');
@@ -212,8 +214,8 @@
 		function category3(e){
 			c.pop();
 			c1.pop();
-			var cateA = ['인건비(직접비)','연구활동비(직접비)'];
-			var cateB = ['인건비(간접비)','연구활동비(간접비)'];
+			var cateA = ['세목선택','인건비(직접비)','연구활동비(직접비)'];
+			var cateB = ['세목선택','인건비(간접비)','연구활동비(간접비)'];
 		  var cateC = ['세목선택'];
 			var target = document.getElementById("cateM3");
          
@@ -221,7 +223,7 @@
               $("select[name='cM3']").attr('disabled',false);    
               var result = cateA;
               c.push('직접비');
-         $(".p").click(function(){
+         $(".p").change(function(){
  	               arrC.pop();
          	      if($("select[name='cM3'] option:selected").val() == '인건비(직접비)'){
          	        arrC.push('인건비(직접비)');
@@ -234,7 +236,7 @@
          	 $("select[name='cM3']").attr('disabled',false);    
               var result = cateB;
                c1.push('간접비');
-          $(".p").click(function(){
+          $(".p").change(function(){
  	               arrC1.pop();
          	      if($("select[name='cM3'] option:selected").val() == '인건비(간접비)'){
          	        arrC1.push('인건비(간접비)');
@@ -252,9 +254,9 @@
 
 		    	for (var i in result){
 			    	var opt = document.createElement("option");
-					 opt.value = result[i];
-				   opt.innerHTML = result[i];
-		       target.appendChild(opt);
+					opt.value = result[i];
+				    opt.innerHTML = result[i];
+		            target.appendChild(opt);
 			}
 }
            
